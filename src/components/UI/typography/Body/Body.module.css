@@ -1,0 +1,4 @@
+.root {
+    font-size: var(--text-body-font-size);
+    color: var(--text-body-color);
+}
