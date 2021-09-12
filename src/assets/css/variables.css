@@ -26,4 +26,7 @@
 
   --topbar-background-color: var(--mono-100);
   --topbar-border-color: var(--border-color);
+
+  --properties-panel-background-color: var(--mono-100);
+  --properties-panel-border-color: var(--border-color);
 }

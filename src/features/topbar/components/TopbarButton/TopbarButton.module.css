@@ -4,6 +4,12 @@
   align-items: center;
   color: var(--mono-500);
   margin: 0 var(--space-100);
+  background-color: transparent;
+  border: none;
+}
+
+.selected {
+  color: var(--primary-500);
 }
 
 .icon {

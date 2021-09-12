@@ -1,18 +1,20 @@
 import { FunctionComponent } from "react";
 import { Definition } from "../../arenaSlice";
-import { usePrimitiveHelpers } from "../../hooks/usePrimitiveHelpers";
+import { usePrimitiveDynamicStyles } from "../../hooks/usePrimitiveDynamicStyles";
+import { usePrimitiveSelect } from "../../hooks/usePrimitiveSelect";
 
 interface RectangleProps {
   definition: Definition;
 }
 
 export const Text: FunctionComponent<RectangleProps> = ({ definition }) => {
-  const { clickHandler, ekstraStyles } = usePrimitiveHelpers(definition);
+  const { selectSelf } = usePrimitiveSelect(definition);
+  const { dynamicStyles } = usePrimitiveDynamicStyles(definition);
 
   return (
     <p
-      style={{ ...definition.properties, ...ekstraStyles }}
-      onClick={clickHandler}
+      style={{ ...definition.properties, ...dynamicStyles }}
+      onClick={selectSelf}
     >
       {definition.properties.value}
     </p>

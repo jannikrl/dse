@@ -1,11 +1,13 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
-import arenaReducer from '../features/arena/arenaSlice'
+import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import counterReducer from "../features/counter/counterSlice";
+import arenaReducer from "../features/arena/arenaSlice";
+import topbarReducer from "../features/topbar/topbarSlice";
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     arena: arenaReducer,
+    topbar: topbarReducer,
   },
 });
 
