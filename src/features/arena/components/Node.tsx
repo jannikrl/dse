@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 import { Definition } from "../arenaSlice";
-import { Rectangle } from "./primitives/Rectangle";
-import { Text } from "./primitives/Text";
+import { Rectangle } from "./primitives/Reactangle/Rectangle";
+import { Text } from "./primitives/Text/Text";
 
 interface NodeProps {
   definition: Definition;

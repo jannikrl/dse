@@ -1,9 +1,7 @@
 import classNames from "classnames";
 import { ReactNode, FunctionComponent } from "react";
-import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { Body } from "../../../../components/UI/typography/Body/Body";
 import { DefinitionType } from "../../../../types";
-import { select, selectSelectedType } from "../../topbarSlice";
 import styles from "./TopbarButton.module.css";
 
 interface TopbarButtonProps {

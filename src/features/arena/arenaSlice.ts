@@ -42,13 +42,19 @@ const slice = createSlice({
     unselect: (state) => {
       state.selectedId = null;
     },
-    add: (state, action: PayloadAction<{ id: Id; type: DefinitionType }>) => {
-      if (!state.definition) return;
+    add: (
+      state,
+      action: PayloadAction<{ id: Id | null; type: DefinitionType }>
+    ) => {
+      const primitive = newPrimitive(action.payload.type);
+
+      if (!state.definition || action.payload.id === null) {
+        state.definition = primitive;
+        return;
+      }
 
       const loopResult = loop(action.payload.id, state.definition);
-
       const target = loopResult?.target;
-      const primitive = newPrimitive(action.payload.type);
 
       if (primitive) target?.children.push(primitive);
     },

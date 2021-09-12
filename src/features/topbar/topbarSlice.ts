@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-import { DefinitionType, Id } from "../../types";
+import { DefinitionType } from "../../types";
 
 interface TopbarSlice {
   selectedType: DefinitionType | null;
