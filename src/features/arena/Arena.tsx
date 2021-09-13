@@ -15,6 +15,7 @@ import {
 } from "./arenaSlice";
 import { Tree } from "./components/Tree";
 import { useBackspace } from "./hooks/useBackspace";
+import { useEscape } from "./hooks/useEscape";
 
 export const Arena = () => {
   const definition = useAppSelector(selectDefinition);
@@ -27,8 +28,15 @@ export const Arena = () => {
   const canAdd = isInAddingMode && isAvailableForDrop;
 
   const onBackspace = useBackspace();
+  const onEscape = useEscape();
 
   const dispatch = useAppDispatch();
+
+  onBackspace(() => dispatch(remove()));
+  onEscape(() => {
+    dispatch(arenaUnselect());
+    dispatch(topbarUnselect());
+  });
 
   const clickHandler = () => {
     if (canAdd && selectedType) {
@@ -42,8 +50,6 @@ export const Arena = () => {
   const mouseOverHandler = () => {
     dispatch(mouseOver(null));
   };
-
-  onBackspace(() => dispatch(remove()));
 
   return (
     <div

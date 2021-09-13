@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { ReactNode, FunctionComponent } from "react";
-import { Body } from "../../../../components/UI/typography/Body/Body";
+import { BodySmall } from "../../../../components/typography/BodySmall/BodySmall";
 import { DefinitionType } from "../../../../types";
 import styles from "./TopbarButton.module.css";
 
@@ -25,11 +25,11 @@ export const TopbarButton: FunctionComponent<TopbarButtonProps> = ({
       onClick={() => onClick(type)}
     >
       {icon}
-      <Body
+      <BodySmall
         className={classNames(styles.title, { [styles.selected]: isSelected })}
       >
         {children}
-      </Body>
+      </BodySmall>
     </button>
   );
 };

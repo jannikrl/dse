@@ -20,6 +20,7 @@
 
   --text-body-color: var(--mono-500);
   --text-body-font-size: 14px;
+  --text-body-small-font-size: 12px;
 
   --area-background-color: var(--mono-200);
   --area-outline: var(--primary-500);
@@ -29,4 +30,7 @@
 
   --properties-panel-background-color: var(--mono-100);
   --properties-panel-border-color: var(--border-color);
+
+  --layers-panel-background-color: var(--mono-100);
+  --layers-panel-border-color: var(--border-color);
 }

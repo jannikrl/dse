@@ -4,6 +4,7 @@ import { selectSelectedType } from "../../../../topbar/topbarSlice";
 import { Definition, mouseOver } from "../../../arenaSlice";
 import { usePrimitiveSelect } from "../../../hooks/usePrimitiveSelect";
 import { usePrimitiveAdd } from "../../../hooks/usePrimitiveAdd";
+import { usePrimitiveHover } from "../../../hooks/usePrimitiveHover";
 
 interface RectangleProps {
   definition: Definition;
@@ -15,6 +16,7 @@ export const Rectangle: FunctionComponent<RectangleProps> = ({
   children,
 }) => {
   const { selectSelf, selectStyles } = usePrimitiveSelect(definition);
+  const { hoverStyles } = usePrimitiveHover(definition);
   const { showDropIndicator, canAdd, add } = usePrimitiveAdd(definition);
   
   const selectedType = useAppSelector(selectSelectedType);
@@ -36,7 +38,7 @@ export const Rectangle: FunctionComponent<RectangleProps> = ({
 
   return (
     <div
-      style={{ ...definition.properties, ...selectStyles }}
+      style={{ ...definition.properties, ...selectStyles, ...hoverStyles }}
       onClick={clickHandler}
       onMouseOver={mouseOverHandler}
     >
