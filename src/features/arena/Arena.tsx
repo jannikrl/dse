@@ -1,4 +1,7 @@
+import classNames from "classnames";
+import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { Body } from "../../components/typography/Body/Body";
 import {
   selectIsInAddingMode,
   selectSelectedType,
@@ -51,13 +54,15 @@ export const Arena = () => {
     dispatch(mouseOver(null));
   };
 
+  const [on, setOn] = useState(false);
+
   return (
     <div
       className={styles.root}
       onClick={clickHandler}
       onMouseOver={mouseOverHandler}
     >
-      {!definition && !showDropIndicator && "Add something here"}
+      {!definition && !showDropIndicator && <Body>Add something here</Body>}
       {!definition && showDropIndicator && <div>|</div>}
       {definition && <Tree definition={definition} />}
     </div>

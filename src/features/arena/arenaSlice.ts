@@ -1,11 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import { DefinitionType, Id } from "../../types";
-import { combined } from "./definition-templates/combined-example";
 import { newPrimitive } from "./definition-templates/newPrimitive";
 import { loop } from "./utils/loop/loop";
 
-// Component Definition - We "define" our components
 export interface Definition {
   type: DefinitionType;
   id: Id;
@@ -13,11 +11,11 @@ export interface Definition {
   children: Definition[];
 }
 
-interface Properties {
+export interface Properties {
   minWidth?: number;
   minHeight?: number;
   backgroundColor?: string;
-  value?: string;
+  text?: string;
 }
 
 export interface ArenaState {
@@ -27,7 +25,7 @@ export interface ArenaState {
 }
 
 const initialState: ArenaState = {
-  definition: combined,
+  definition: null,
   selectedId: null,
   mouseOverId: null,
 };
@@ -77,13 +75,29 @@ const slice = createSlice({
     mouseOver: (state, action: PayloadAction<Id | null>) => {
       state.mouseOverId = action.payload;
     },
+    updateProperty: (
+      state,
+      action: PayloadAction<Properties>
+    ) => {
+      if (!state.selectedId || !state.definition) return;
+      const loopResult = loop(state.selectedId, state.definition);
+      if (!loopResult?.target) return;
+      const properties = loopResult.target.properties;
+      Object.assign(properties, action.payload);
+    },
   },
 });
 
 export const selectDefinition = (state: RootState) => state.arena.definition;
 export const selectSelectedId = (state: RootState) => state.arena.selectedId;
 export const selectMouseOverId = (state: RootState) => state.arena.mouseOverId;
+export const selectSelectedDefinition = (state: RootState) => {
+  if (!state.arena.selectedId || !state.arena.definition) return null;
+  const loopResult = loop(state.arena.selectedId, state.arena.definition);
+  if (!loopResult?.target) return null;
+  return loopResult.target;
+};
 
-export const { select, unselect, add, remove, mouseOver } = slice.actions;
+export const { select, unselect, add, remove, mouseOver, updateProperty } = slice.actions;
 
 export default slice.reducer;

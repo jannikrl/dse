@@ -1,0 +1,18 @@
+.root {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.label {
+  color: var(--label-color);
+  font-size: var(--label-font-size);
+  flex-basis: 140px;
+  flex-grow: 1;
+  text-transform: capitalize;
+}
+
+.input {
+  flex-shrink: 1;
+  width: 88px;
+}

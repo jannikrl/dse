@@ -7,7 +7,7 @@ export const newText = () => {
     type: "text",
     id: generateId(),
     properties: {
-      value: "Type something",
+      text: "Type something",
     },
     children: [],
   } as Definition;

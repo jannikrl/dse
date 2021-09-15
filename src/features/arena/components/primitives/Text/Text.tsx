@@ -27,7 +27,7 @@ export const Text: FunctionComponent<RectangleProps> = ({ definition }) => {
       onClick={selectSelf}
       onMouseOver={mouseOverHandler}
     >
-      {definition.properties.value}
+      {definition.properties.text}
     </p>
   );
 };

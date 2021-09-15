@@ -24,6 +24,7 @@ describe("area reducer", () => {
   const initialState: ArenaState = {
     definition: initialDefinition,
     selectedId: 1004,
+    mouseOverId: null,
   };
 
   it("should remove child", () => {

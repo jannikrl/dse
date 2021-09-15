@@ -1,0 +1,8 @@
+.root {
+  border: none;
+  background-color: var(--input-background-color);
+  border-radius: var(--border-radius);
+  font-size: var(--input-font-size);
+  padding: var(--space-100);
+  width: 100%;
+}

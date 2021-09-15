@@ -1,9 +1,10 @@
 :root {
   --mono-100: #ffffff;
   --mono-200: #f5f5f5;
-  --mono-250: #EBEBEB;
+  --mono-250: #ebebeb;
   --mono-500: #858585;
-  
+  --mono-700: #333333;
+
   --primary-500: #3d96f5;
 
   --space-50: 4px;
@@ -14,13 +15,24 @@
   --space-400: 32px;
   --space-500: 40px;
 
+  --text-font-size: 14px;
+  --text-font-size-small: 12px;
+
   --border-color: var(--mono-250);
+  --border-radius: 4px;
 
   --light-text-color: var(--mono-250);
 
   --text-body-color: var(--mono-500);
-  --text-body-font-size: 14px;
+  --text-body-font-size: var(--text-font-size);
   --text-body-small-font-size: 12px;
+
+  --label-color: var(--mono-700);
+  --label-font-size: 12px;
+
+  --input-background-color: var(--mono-200);
+  --input-border-radius: var(--border-radius);
+  --input-font-size: var(--text-font-size-small);
 
   --area-background-color: var(--mono-200);
   --area-outline: var(--primary-500);

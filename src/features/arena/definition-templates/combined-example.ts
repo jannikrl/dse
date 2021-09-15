@@ -13,7 +13,7 @@ export const combined: Definition = {
       type: "text",
       id: 1004,
       properties: {
-        value: "Type something",
+        text: "Type something",
       },
       children: [],
     },

@@ -14,6 +14,6 @@ export const Section: FunctionComponent<SectionProps> = ({
 }) => (
   <div className={styles.root}>
     <Heading>{title}</Heading>
-    {children}
+    <div className={styles.content}>{children}</div>
   </div>
 );
