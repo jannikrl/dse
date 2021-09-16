@@ -10,6 +10,7 @@ export const newRectangle = () => {
       minWidth: 48,
       minHeight: 48,
       backgroundColor: "#44CCFF",
+      borderRadius: 0,
     },
     children: [],
   } as Definition;

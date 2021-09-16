@@ -2,6 +2,7 @@
   --mono-100: #ffffff;
   --mono-200: #f5f5f5;
   --mono-250: #ebebeb;
+  --mono-300: #d9d9d9;
   --mono-500: #858585;
   --mono-700: #333333;
 
@@ -21,6 +22,8 @@
   --border-color: var(--mono-250);
   --border-radius: 4px;
 
+  --background-color: var(--mono-200);
+
   --light-text-color: var(--mono-250);
 
   --text-body-color: var(--mono-500);
@@ -28,13 +31,13 @@
   --text-body-small-font-size: 12px;
 
   --label-color: var(--mono-700);
-  --label-font-size: 12px;
+  --label-font-size: var(--text-font-size-small);
 
-  --input-background-color: var(--mono-200);
+  --input-background-color: var(--background-color);
   --input-border-radius: var(--border-radius);
   --input-font-size: var(--text-font-size-small);
 
-  --area-background-color: var(--mono-200);
+  --area-background-color: var(--background-color);
   --area-outline: var(--primary-500);
 
   --topbar-background-color: var(--mono-100);

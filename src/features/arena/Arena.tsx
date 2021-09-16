@@ -1,5 +1,3 @@
-import classNames from "classnames";
-import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Body } from "../../components/typography/Body/Body";
 import {
@@ -53,8 +51,6 @@ export const Arena = () => {
   const mouseOverHandler = () => {
     dispatch(mouseOver(null));
   };
-
-  const [on, setOn] = useState(false);
 
   return (
     <div

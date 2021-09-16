@@ -3,6 +3,7 @@ import { RootState } from "../../app/store";
 import { DefinitionType, Id } from "../../types";
 import { newPrimitive } from "./definition-templates/newPrimitive";
 import { loop } from "./utils/loop/loop";
+import { deleteEmptyProperties } from "./utils/deleteEmptyProperties";
 
 export interface Definition {
   type: DefinitionType;
@@ -15,7 +16,13 @@ export interface Properties {
   minWidth?: number;
   minHeight?: number;
   backgroundColor?: string;
+  borderRadius?: number;
   text?: string;
+  color?: string;
+  marginTop?: number;
+  marginRight?: number;
+  marginBottom?: number;
+  marginLeft?: number;
 }
 
 export interface ArenaState {
@@ -75,15 +82,14 @@ const slice = createSlice({
     mouseOver: (state, action: PayloadAction<Id | null>) => {
       state.mouseOverId = action.payload;
     },
-    updateProperty: (
-      state,
-      action: PayloadAction<Properties>
-    ) => {
+    updateProperty: (state, action: PayloadAction<Properties>) => {
       if (!state.selectedId || !state.definition) return;
       const loopResult = loop(state.selectedId, state.definition);
       if (!loopResult?.target) return;
-      const properties = loopResult.target.properties;
+      let properties = loopResult.target.properties;
       Object.assign(properties, action.payload);
+      loopResult.target.properties = deleteEmptyProperties(properties);
+      console.log(properties);
     },
   },
 });
@@ -98,6 +104,7 @@ export const selectSelectedDefinition = (state: RootState) => {
   return loopResult.target;
 };
 
-export const { select, unselect, add, remove, mouseOver, updateProperty } = slice.actions;
+export const { select, unselect, add, remove, mouseOver, updateProperty } =
+  slice.actions;
 
 export default slice.reducer;

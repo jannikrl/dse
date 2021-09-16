@@ -8,6 +8,7 @@ export const newText = () => {
     id: generateId(),
     properties: {
       text: "Type something",
+      color: "111111"
     },
     children: [],
   } as Definition;
