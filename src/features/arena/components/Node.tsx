@@ -1,5 +1,6 @@
 import { FunctionComponent } from "react";
 import { Definition } from "../arenaSlice";
+import { HStack } from "./primitives/HStack/HStack";
 import { Rectangle } from "./primitives/Reactangle/Rectangle";
 import { Text } from "./primitives/Text/Text";
 
@@ -16,6 +17,8 @@ export const Node: FunctionComponent<NodeProps> = ({ definition }) => {
         );
       case "text":
         return <Text definition={definition} />;
+      case "hStack":
+        return <HStack definition={definition}>{renderChildren()}</HStack>;
     }
   };
 

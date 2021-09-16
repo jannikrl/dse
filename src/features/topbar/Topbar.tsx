@@ -34,6 +34,14 @@ export const Topbar = () => {
       >
         Text
       </TopbarButton>
+      <TopbarButton
+        icon={<RectangleIcon />}
+        type="hStack"
+        onClick={clickHandler}
+        isSelected={selectedType === "hStack"}
+      >
+        HStack
+      </TopbarButton>
     </div>
   );
 };

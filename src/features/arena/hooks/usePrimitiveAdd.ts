@@ -4,18 +4,17 @@ import {
   selectIsInAddingMode,
   unselect as topbarUnselect,
 } from "../../topbar/topbarSlice";
-import { add as arenaAdd, Definition, selectMouseOverId } from "../arenaSlice";
+import { add as arenaAdd, Definition } from "../arenaSlice";
 
-export const usePrimitiveAdd = (definition: Definition) => {
+export const usePrimitiveAdd = (
+  definition: Definition,
+  maxNumberOfChildren: number | null = null
+) => {
   const isInAddingMode = useAppSelector(selectIsInAddingMode);
-  const mouseOverId = useAppSelector(selectMouseOverId);
 
-  const maxNumberOfChildren = 1;
-  const isAvailableForDrop = definition.children.length < maxNumberOfChildren;
-  const isMouseOver = mouseOverId === definition.id;
-
-  const showDropIndicator = isInAddingMode && isMouseOver && isAvailableForDrop;
-
+  const isAvailableForDrop = maxNumberOfChildren
+    ? definition.children.length < maxNumberOfChildren
+    : true;
   const canAdd = isInAddingMode && isAvailableForDrop;
 
   const dispatch = useAppDispatch();
@@ -25,5 +24,5 @@ export const usePrimitiveAdd = (definition: Definition) => {
     dispatch(topbarUnselect());
   };
 
-  return { showDropIndicator, canAdd, add };
+  return { canAdd, add };
 };

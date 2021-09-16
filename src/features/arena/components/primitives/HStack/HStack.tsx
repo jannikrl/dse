@@ -1,25 +1,39 @@
-import { FunctionComponent, ReactNode, MouseEvent } from "react";
+import {
+  FunctionComponent,
+  ReactNode,
+  MouseEvent,
+  useRef,
+} from "react";
 import { useAppDispatch, useAppSelector } from "../../../../../app/hooks";
 import { selectSelectedType } from "../../../../topbar/topbarSlice";
 import { Definition, mouseOver } from "../../../arenaSlice";
 import { usePrimitiveSelect } from "../../../hooks/usePrimitiveSelect";
 import { usePrimitiveAdd } from "../../../hooks/usePrimitiveAdd";
 import { usePrimitiveHover } from "../../../hooks/usePrimitiveHover";
+import { useDropIndicator } from "../../../hooks/useDropIndicator";
 
-interface RectangleProps {
+interface HStackProps {
   definition: Definition;
   children: ReactNode;
 }
 
-export const Rectangle: FunctionComponent<RectangleProps> = ({
+export const HStack: FunctionComponent<HStackProps> = ({
   definition,
   children,
 }) => {
+  const ref = useRef(null);
   const { selectSelf, selectStyles } = usePrimitiveSelect(definition);
-  const { hoverStyles, isMouseOver } = usePrimitiveHover(definition);
+  const { isMouseOver, hoverStyles } = usePrimitiveHover(definition);
   const { canAdd, add } = usePrimitiveAdd(definition);
+  const { dropIndicatorPosition, dropIndex } = useDropIndicator(ref);
   const showDropIndicator = isMouseOver && canAdd;
-  
+  // Drop position
+
+  // Drop indicator position
+  // Drop index
+
+  // End
+
   const selectedType = useAppSelector(selectSelectedType);
 
   const dispatch = useAppDispatch();
@@ -42,6 +56,7 @@ export const Rectangle: FunctionComponent<RectangleProps> = ({
       style={{ ...definition.properties, ...selectStyles, ...hoverStyles }}
       onClick={clickHandler}
       onMouseOver={mouseOverHandler}
+      ref={ref}
     >
       {showDropIndicator && <div>|</div>}
       {children}

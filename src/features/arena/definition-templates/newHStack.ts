@@ -1,15 +1,14 @@
 import { Definition } from "../arenaSlice";
 import { generateId } from "../utils/generateId";
 
-export const newRectangle = () => {
+export const newHStack = () => {
   return {
-    type: "rectangle",
+    type: "hStack",
     id: generateId(),
     properties: {
       minWidth: 48,
       minHeight: 48,
-      backgroundColor: "#44CCFF",
-      borderRadius: 0,
+      display: 'flex',
     },
     children: [],
   } as Definition;

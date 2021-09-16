@@ -14,5 +14,5 @@ export const usePrimitiveHover = (definition: Definition) => {
     ? { outline: `1px solid ${getCssVariable("--primary-500")}` }
     : {};
 
-  return { hoverStyles };
+  return { hoverStyles, isMouseOver };
 };
