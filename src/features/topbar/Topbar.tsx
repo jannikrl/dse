@@ -2,6 +2,7 @@ import { TopbarButton } from "./components/TopbarButton/TopbarButton";
 import { TextIcon } from "./assets/icons/TextIcon";
 import { RectangleIcon } from "./assets/icons/RectangleIcon";
 import { HStackIcon } from "./assets/icons/HStackIcon";
+import { VStackIcon } from "./assets/icons/VStackIcon";
 import styles from "./Topbar.module.css";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { select, selectSelectedType } from "./topbarSlice";
@@ -35,6 +36,9 @@ export const Topbar = () => {
       >
         Text
       </TopbarButton>
+
+      <div className={styles.divider}></div>
+      
       <TopbarButton
         icon={<HStackIcon />}
         type="hStack"
@@ -42,6 +46,14 @@ export const Topbar = () => {
         isSelected={selectedType === "hStack"}
       >
         HStack
+      </TopbarButton>
+      <TopbarButton
+        icon={<VStackIcon />}
+        type="vStack"
+        onClick={clickHandler}
+        isSelected={selectedType === "vStack"}
+      >
+        VStack
       </TopbarButton>
     </div>
   );

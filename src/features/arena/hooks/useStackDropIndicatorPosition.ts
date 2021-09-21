@@ -12,7 +12,7 @@ import { selectIsInAddingMode } from "../../topbar/topbarSlice";
 export const useStackDropIndicatorPosition = (
   stackRef: MutableRefObject<HTMLElement> | MutableRefObject<null>,
   dropIndicatorRef: MutableRefObject<HTMLElement> | MutableRefObject<null>,
-  stackType: "hStack" | "vStack"
+  stackType: "hStack" | "vStack" = "hStack"
 ) => {
   const isInAddingMode = useAppSelector(selectIsInAddingMode);
   const [dropIndicatorPosition, setDropIndicatorPosition] = useState<
@@ -34,45 +34,65 @@ export const useStackDropIndicatorPosition = (
     return childElements
       .filter((child) => !child.isSameNode(dropIndicatorElement))
       .reduce((carry, childElement) => {
-        const start = childElement.offsetLeft;
-        const end = start + childElement.offsetWidth;
+        let start =
+          stackType === "hStack"
+            ? childElement.offsetLeft
+            : childElement.offsetTop;
+        let end =
+          stackType === "hStack"
+            ? start + childElement.offsetWidth
+            : start + childElement.offsetHeight;
         carry.push({ start, end });
         return carry;
       }, [] as { start: number; end: number }[]);
-  }, [stackRef, dropIndicatorRef]);
+  }, [stackRef, stackType, dropIndicatorRef]);
 
   useEffect(() => {
     childrenPositions.current = updateChildrenPositions();
+    console.log(childrenPositions.current);
   }, [updateChildrenPositions, isInAddingMode]);
 
+  const mousePositionFromStart = (event: MouseEvent) => {
+    if (!stackRef?.current) return;
+
+    const elementDistanceToStartOfScreen =
+      stackType === "hStack"
+        ? stackRef?.current?.getBoundingClientRect().left
+        : stackRef?.current?.getBoundingClientRect().top;
+    const mouseDistanceToStartOfScreen =
+      stackType === "hStack" ? event.pageX : event.pageY;
+    return mouseDistanceToStartOfScreen - elementDistanceToStartOfScreen;
+  };
+
   const updateDropIndicatorValues = (event: MouseEvent) => {
-    let stackElementWidth = stackRef.current?.offsetWidth ?? 0;
-    const elementDistanceToLeftEdgeOfScreen =
-      stackRef?.current?.getBoundingClientRect().left;
-    if (!elementDistanceToLeftEdgeOfScreen) return;
-    const mouseDistanceToLeftEdgeOfScreen = event.pageX;
-    const mousePositionX =
-      mouseDistanceToLeftEdgeOfScreen - elementDistanceToLeftEdgeOfScreen;
+    let stackElementSize =
+      stackType === "hStack"
+        ? stackRef.current?.offsetWidth ?? 0
+        : stackRef.current?.offsetHeight ?? 0;
+
+    const mousePosition = mousePositionFromStart(event);
+
+    if (!mousePosition) return;
 
     setDropIndex(childrenPositions.current.length);
     if (childrenPositions.current.length > 0) {
-      setDropIndicatorPosition(
-        ((stackElementWidth +
+      const betweenLastChildAndStackEndPosition =
+        (stackElementSize +
           childrenPositions.current[childrenPositions.current.length - 1].end) /
-          2)
-      );
+        2;
+      setDropIndicatorPosition(betweenLastChildAndStackEndPosition);
     }
 
     [...childrenPositions.current].reverse().forEach((childPosition, index) => {
       const centerOfChild = (childPosition.end + childPosition.start) / 2;
-      if (mousePositionX < centerOfChild) {
+      if (mousePosition < centerOfChild) {
         setDropIndex(childrenPositions.current.length - index - 1);
-        const previousChildRightEdgePosition =
+        const previousChildEndPosition =
           index !== childrenPositions.current.length - 1
             ? [...childrenPositions.current].reverse()[index + 1].end
             : 0;
         setDropIndicatorPosition(
-          (previousChildRightEdgePosition + childPosition.start) / 2
+          (previousChildEndPosition + childPosition.start) / 2
         );
       }
     });

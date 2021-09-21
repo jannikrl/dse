@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   color: var(--mono-500);
-  margin: 0 var(--space-100);
+  margin: 0 var(--space-50);
   background-color: transparent;
   border: none;
 }

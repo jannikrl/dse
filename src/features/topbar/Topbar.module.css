@@ -7,3 +7,10 @@
   justify-content: center;
   align-items: center;
 }
+
+.divider {
+  width: 1px;
+  height: calc(100% - 32px);
+  background-color: var(--topbar-border-color);
+  margin: 16px 16px;
+}

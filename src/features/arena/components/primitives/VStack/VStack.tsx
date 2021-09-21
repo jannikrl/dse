@@ -1,4 +1,4 @@
-import { FunctionComponent, ReactNode, MouseEvent } from "react";
+import { FunctionComponent, ReactNode, MouseEvent, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../../app/hooks";
 import {
   selectIsInAddingMode,
@@ -8,41 +8,40 @@ import { Definition, mouseOver } from "../../../arenaSlice";
 import { usePrimitiveSelect } from "../../../hooks/usePrimitiveSelect";
 import { usePrimitiveAddChild } from "../../../hooks/usePrimitiveAddChild";
 import { usePrimitiveHover } from "../../../hooks/usePrimitiveHover";
-import styles from "./Rectangle.module.css";
+import { useStackDropIndicatorPosition } from "../../../hooks/useStackDropIndicatorPosition";
+import styles from "./VStack.module.css";
+import { DropIndicator } from "../../DropIndicator/DropIndicator";
 
-interface RectangleProps {
+interface HStackProps {
   definition: Definition;
   children: ReactNode;
 }
 
-export const Rectangle: FunctionComponent<RectangleProps> = ({
+export const VStack: FunctionComponent<HStackProps> = ({
   definition,
   children,
 }) => {
-  const maxNumberOfChildren = 1;
-  const { selectSelf, selectStyles } = usePrimitiveSelect(definition);
-  const { hoverStyles, isMouseOver } = usePrimitiveHover(definition);
-  const { canAddChild, addChild } = usePrimitiveAddChild(
-    definition,
-    maxNumberOfChildren
-  );
+  const hStackRef = useRef(null);
+  const dropIndicatorRef = useRef(null);
   const isInAddingMode = useAppSelector(selectIsInAddingMode);
-
   const selectedType = useAppSelector(selectSelectedType);
+  const { selectSelf, selectStyles } = usePrimitiveSelect(definition);
+  const { isMouseOver, hoverStyles } = usePrimitiveHover(definition);
+  const { canAddChild, addChild } = usePrimitiveAddChild(definition);
+  const { dropIndicatorPosition, dropIndex, mouseMove } =
+    useStackDropIndicatorPosition(hStackRef, dropIndicatorRef, "vStack");
 
   const dispatch = useAppDispatch();
 
   const mouseOverHandler = (event: MouseEvent) => {
-    if (isInAddingMode && !canAddChild) return;
-    event.stopPropagation();
     dispatch(mouseOver(definition.id));
+    event.stopPropagation();
   };
 
   const clickHandler = (event: MouseEvent) => {
-    if (isInAddingMode && !canAddChild) return;
     event.stopPropagation();
     if (isInAddingMode && canAddChild && selectedType) {
-      addChild({ type: selectedType });
+      addChild({ type: selectedType, index: dropIndex });
       return;
     }
     selectSelf();
@@ -52,22 +51,25 @@ export const Rectangle: FunctionComponent<RectangleProps> = ({
 
   return (
     <div
-      style={{ ...definition.properties, ...selectStyles, ...hoverStyles }}
+      style={{
+        ...definition.properties,
+        ...selectStyles,
+        ...hoverStyles,
+      }}
       onClick={clickHandler}
       onMouseOver={mouseOverHandler}
+      onMouseMove={mouseMove}
+      ref={hStackRef}
       className={styles.root}
     >
       {showDropIndicator && (
-        <div
+        <DropIndicator
           style={{
-            position: "absolute",
-            top: 0,
-            left: "50%",
-            transform: "translateX(-2px)",
+            top: dropIndicatorPosition ?? "50%",
           }}
-        >
-          |
-        </div>
+          isVertical
+          ref={dropIndicatorRef}
+        />
       )}
       {children}
     </div>

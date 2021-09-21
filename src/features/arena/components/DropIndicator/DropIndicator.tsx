@@ -1,21 +1,21 @@
-import { FunctionComponent } from "react";
-import { MutableRefObject, CSSProperties } from "react";
+import classNames from "classnames";
+import { forwardRef } from "react";
+import { CSSProperties } from "react";
+import styles from "./DropIndicator.module.css";
 
 interface DropIndicatorProps {
-    ref: MutableRefObject<HTMLDivElement | null>,
-    style: CSSProperties,
+  style: CSSProperties;
+  isVertical?: boolean;
 }
 
-export const DropIndicator: FunctionComponent<DropIndicatorProps> = ({ref, style}) => (
-  <div
-    style={{
-      position: "absolute",
-      top: 0,
-      transform: "translateX(-2px)",
-      ...style
-    }}
-    ref={ref}
-  >
-    |
-  </div>
+export const DropIndicator = forwardRef<HTMLDivElement, DropIndicatorProps>(
+  ({ style, isVertical }, ref) => (
+    <div
+      style={style}
+      className={classNames(styles.root, { [styles.vertical]: isVertical })}
+      ref={ref}
+    >
+      |
+    </div>
+  )
 );

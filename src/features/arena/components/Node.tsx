@@ -3,6 +3,7 @@ import { Definition } from "../arenaSlice";
 import { HStack } from "./primitives/HStack/HStack";
 import { Rectangle } from "./primitives/Reactangle/Rectangle";
 import { Text } from "./primitives/Text/Text";
+import { VStack } from "./primitives/VStack/VStack";
 
 interface NodeProps {
   definition: Definition;
@@ -19,6 +20,8 @@ export const Node: FunctionComponent<NodeProps> = ({ definition }) => {
         return <Text definition={definition} />;
       case "hStack":
         return <HStack definition={definition}>{renderChildren()}</HStack>;
+      case "vStack":
+        return <VStack definition={definition}>{renderChildren()}</VStack>;
     }
   };
 
