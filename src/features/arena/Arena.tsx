@@ -13,10 +13,12 @@ import {
   unselect as arenaUnselect,
   selectDefinition,
   selectMouseOverId,
+  isInExpandMode,
 } from "./arenaSlice";
 import { Tree } from "./components/Tree";
-import { useBackspace } from "./hooks/useBackspace";
-import { useEscape } from "./hooks/useEscape";
+import { useAlt } from "./hooks/keyPress/useAlt";
+import { useBackspace } from "./hooks/keyPress/useBackspace";
+import { useEscape } from "./hooks/keyPress/useEscape";
 
 export const Arena = () => {
   const definition = useAppSelector(selectDefinition);
@@ -30,6 +32,7 @@ export const Arena = () => {
 
   const onBackspace = useBackspace();
   const onEscape = useEscape();
+  const onAlt = useAlt();
 
   const dispatch = useAppDispatch();
 
@@ -38,6 +41,10 @@ export const Arena = () => {
     dispatch(arenaUnselect());
     dispatch(topbarUnselect());
   });
+  onAlt(
+    () => dispatch(isInExpandMode(true)),
+    () => dispatch(isInExpandMode(false))
+  );
 
   const clickHandler = () => {
     if (canAdd && selectedType) {

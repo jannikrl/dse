@@ -11,9 +11,6 @@ export const useEscape = () => {
     if (event.key !== "Escape") {
       return;
     }
-    if (event?.target?.tagName === "INPUT") {
-      return;
-    }
 
     callback();
     event?.target?.blur();

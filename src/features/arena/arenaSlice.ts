@@ -29,12 +29,14 @@ export interface ArenaState {
   definition: Definition | null;
   selectedId: Id | null;
   mouseOverId: Id | null;
+  isInExpandMode: boolean;
 }
 
 const initialState: ArenaState = {
   definition: null,
   selectedId: null,
   mouseOverId: null,
+  isInExpandMode: false,
 };
 
 const slice = createSlice({
@@ -94,7 +96,10 @@ const slice = createSlice({
       let properties = loopResult.target.properties;
       Object.assign(properties, action.payload);
       loopResult.target.properties = deleteEmptyProperties(properties);
-      console.log(properties);
+    },
+    isInExpandMode: (state, action: PayloadAction<boolean>) => {
+      console.log("Reducer: isInExpandMode", action.payload)
+      state.isInExpandMode = action.payload;
     },
   },
 });
@@ -108,8 +113,17 @@ export const selectSelectedDefinition = (state: RootState) => {
   if (!loopResult?.target) return null;
   return loopResult.target;
 };
+export const selectIsInExpandMode = (state: RootState) =>
+  state.arena.isInExpandMode;
 
-export const { select, unselect, add, remove, mouseOver, updateProperty } =
-  slice.actions;
+export const {
+  select,
+  unselect,
+  add,
+  remove,
+  mouseOver,
+  updateProperty,
+  isInExpandMode,
+} = slice.actions;
 
 export default slice.reducer;

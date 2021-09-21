@@ -4,13 +4,14 @@ import {
   selectIsInAddingMode,
   selectSelectedType,
 } from "../../../../topbar/topbarSlice";
-import { Definition, mouseOver } from "../../../arenaSlice";
+import { Definition, mouseOver, selectIsInExpandMode } from "../../../arenaSlice";
 import { usePrimitiveSelect } from "../../../hooks/usePrimitiveSelect";
 import { usePrimitiveAddChild } from "../../../hooks/usePrimitiveAddChild";
 import { usePrimitiveHover } from "../../../hooks/usePrimitiveHover";
 import { useStackDropIndicatorPosition } from "../../../hooks/useStackDropIndicatorPosition";
 import styles from "./HStack.module.css";
 import { DropIndicator } from "../../DropIndicator/DropIndicator";
+import classNames from "classnames";
 
 interface HStackProps {
   definition: Definition;
@@ -24,6 +25,7 @@ export const HStack: FunctionComponent<HStackProps> = ({
   const hStackRef = useRef(null);
   const dropIndicatorRef = useRef(null);
   const isInAddingMode = useAppSelector(selectIsInAddingMode);
+  const isInExpandMode = useAppSelector(selectIsInExpandMode);
   const selectedType = useAppSelector(selectSelectedType);
   const { selectSelf, selectStyles } = usePrimitiveSelect(definition);
   const { isMouseOver, hoverStyles } = usePrimitiveHover(definition);
@@ -48,6 +50,7 @@ export const HStack: FunctionComponent<HStackProps> = ({
   };
 
   const showDropIndicator = isInAddingMode && isMouseOver && canAddChild;
+  const hasNoChildren = definition.children.length === 0;
 
   return (
     <div
@@ -60,7 +63,10 @@ export const HStack: FunctionComponent<HStackProps> = ({
       onMouseOver={mouseOverHandler}
       onMouseMove={mouseMove}
       ref={hStackRef}
-      className={styles.root}
+      className={classNames(styles.root, {
+        [styles.empty]: hasNoChildren,
+        [styles.expand]: isInExpandMode
+      })}
     >
       {showDropIndicator && (
         <DropIndicator

@@ -1,3 +1,18 @@
 .root {
   position: relative;
+  display: flex;
+  transition: padding 0.3s, border 0.3s, background-color 0.3s,
+}
+
+.empty {
+  background-color: var(--primary-200);
+  border: var(--border-width) dashed var(--primary-500);
+  min-width: 48px;
+  min-height: 48px;
+}
+
+.expand {
+  background-color: var(--primary-200);
+  border: var(--border-width) dashed var(--primary-500);
+  padding: 8px;
 }
