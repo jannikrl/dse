@@ -6,23 +6,26 @@ import {
 } from "../../topbar/topbarSlice";
 import { add as arenaAdd, Definition } from "../arenaSlice";
 
-export const usePrimitiveAdd = (
+export const usePrimitiveAddChild = (
   definition: Definition,
   maxNumberOfChildren: number | null = null
 ) => {
-  const isInAddingMode = useAppSelector(selectIsInAddingMode);
-
-  const isAvailableForDrop = maxNumberOfChildren
+  const canAddChild = maxNumberOfChildren
     ? definition.children.length < maxNumberOfChildren
     : true;
-  const canAdd = isInAddingMode && isAvailableForDrop;
 
   const dispatch = useAppDispatch();
 
-  const add = (type: DefinitionType) => {
-    dispatch(arenaAdd({ id: definition.id, type: type }));
+  const addChild = (options: { type: DefinitionType; index?: number }) => {
+    dispatch(
+      arenaAdd({
+        id: definition.id,
+        type: options.type,
+        index: options.index ?? 0,
+      })
+    );
     dispatch(topbarUnselect());
   };
 
-  return { canAdd, add };
+  return { canAddChild, addChild };
 };

@@ -49,7 +49,11 @@ const slice = createSlice({
     },
     add: (
       state,
-      action: PayloadAction<{ id: Id | null; type: DefinitionType }>
+      action: PayloadAction<{
+        id: Id | null;
+        type: DefinitionType;
+        index?: number;
+      }>
     ) => {
       const primitive = newPrimitive(action.payload.type);
 
@@ -61,7 +65,8 @@ const slice = createSlice({
       const loopResult = loop(action.payload.id, state.definition);
       const target = loopResult?.target;
 
-      if (primitive) target?.children.push(primitive);
+      if (primitive)
+        target?.children.splice(action.payload.index ?? 0, 0, primitive);
     },
     remove: (state) => {
       if (!state.selectedId) return;

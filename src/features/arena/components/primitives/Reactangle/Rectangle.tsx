@@ -1,10 +1,11 @@
 import { FunctionComponent, ReactNode, MouseEvent } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../../app/hooks";
-import { selectSelectedType } from "../../../../topbar/topbarSlice";
+import { selectIsInAddingMode, selectSelectedType } from "../../../../topbar/topbarSlice";
 import { Definition, mouseOver } from "../../../arenaSlice";
 import { usePrimitiveSelect } from "../../../hooks/usePrimitiveSelect";
-import { usePrimitiveAdd } from "../../../hooks/usePrimitiveAdd";
+import { usePrimitiveAddChild } from "../../../hooks/usePrimitiveAddChild";
 import { usePrimitiveHover } from "../../../hooks/usePrimitiveHover";
+import styles from "./Rectangle.module.css";
 
 interface RectangleProps {
   definition: Definition;
@@ -17,9 +18,9 @@ export const Rectangle: FunctionComponent<RectangleProps> = ({
 }) => {
   const { selectSelf, selectStyles } = usePrimitiveSelect(definition);
   const { hoverStyles, isMouseOver } = usePrimitiveHover(definition);
-  const { canAdd, add } = usePrimitiveAdd(definition);
-  const showDropIndicator = isMouseOver && canAdd;
-  
+  const { canAddChild, addChild } = usePrimitiveAddChild(definition); 
+  const isInAddingMode = useAppSelector(selectIsInAddingMode);
+
   const selectedType = useAppSelector(selectSelectedType);
 
   const dispatch = useAppDispatch();
@@ -30,20 +31,35 @@ export const Rectangle: FunctionComponent<RectangleProps> = ({
   };
 
   const clickHandler = (event: MouseEvent) => {
-    if (canAdd && selectedType) {
-      add(selectedType);
+    event.stopPropagation();
+    if (isInAddingMode && canAddChild && selectedType) {
+      addChild({type: selectedType});
       return;
     }
-    selectSelf(event);
+    selectSelf();
   };
+
+  const showDropIndicator = isInAddingMode && isMouseOver && canAddChild;
 
   return (
     <div
       style={{ ...definition.properties, ...selectStyles, ...hoverStyles }}
       onClick={clickHandler}
       onMouseOver={mouseOverHandler}
+      className={styles.root}
     >
-      {showDropIndicator && <div>|</div>}
+      {showDropIndicator && (
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: "50%",
+            transform: "translateX(-2px)"
+          }}
+        >
+          |
+        </div>
+      )}
       {children}
     </div>
   );

@@ -1,16 +1,16 @@
-import {
-  FunctionComponent,
-  ReactNode,
-  MouseEvent,
-  useRef,
-} from "react";
+import { FunctionComponent, ReactNode, MouseEvent, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../../app/hooks";
-import { selectSelectedType } from "../../../../topbar/topbarSlice";
+import {
+  selectIsInAddingMode,
+  selectSelectedType,
+} from "../../../../topbar/topbarSlice";
 import { Definition, mouseOver } from "../../../arenaSlice";
 import { usePrimitiveSelect } from "../../../hooks/usePrimitiveSelect";
-import { usePrimitiveAdd } from "../../../hooks/usePrimitiveAdd";
+import { usePrimitiveAddChild } from "../../../hooks/usePrimitiveAddChild";
 import { usePrimitiveHover } from "../../../hooks/usePrimitiveHover";
-import { useDropIndicator } from "../../../hooks/useDropIndicator";
+import { useStackDropIndicatorPosition } from "../../../hooks/useStackDropIndicatorPosition";
+import styles from "./HStack.module.css";
+import { DropIndicator } from "../../DropIndicator/DropIndicator";
 
 interface HStackProps {
   definition: Definition;
@@ -21,20 +21,15 @@ export const HStack: FunctionComponent<HStackProps> = ({
   definition,
   children,
 }) => {
-  const ref = useRef(null);
+  const hStackRef = useRef(null);
+  const dropIndicatorRef = useRef(null);
+  const isInAddingMode = useAppSelector(selectIsInAddingMode);
+  const selectedType = useAppSelector(selectSelectedType);
   const { selectSelf, selectStyles } = usePrimitiveSelect(definition);
   const { isMouseOver, hoverStyles } = usePrimitiveHover(definition);
-  const { canAdd, add } = usePrimitiveAdd(definition);
-  const { dropIndicatorPosition, dropIndex } = useDropIndicator(ref);
-  const showDropIndicator = isMouseOver && canAdd;
-  // Drop position
-
-  // Drop indicator position
-  // Drop index
-
-  // End
-
-  const selectedType = useAppSelector(selectSelectedType);
+  const { canAddChild, addChild } = usePrimitiveAddChild(definition);
+  const { dropIndicatorPosition, dropIndex, mouseMove } =
+    useStackDropIndicatorPosition(hStackRef, dropIndicatorRef, "hStack");
 
   const dispatch = useAppDispatch();
 
@@ -44,21 +39,35 @@ export const HStack: FunctionComponent<HStackProps> = ({
   };
 
   const clickHandler = (event: MouseEvent) => {
-    if (canAdd && selectedType) {
-      add(selectedType);
+    event.stopPropagation();
+    if (isInAddingMode && canAddChild && selectedType) {
+      addChild({ type: selectedType, index: dropIndex });
       return;
     }
-    selectSelf(event);
+    selectSelf();
   };
+
+  const showDropIndicator = isInAddingMode && isMouseOver && canAddChild;
 
   return (
     <div
-      style={{ ...definition.properties, ...selectStyles, ...hoverStyles }}
+      style={{
+        ...definition.properties,
+        ...selectStyles,
+        ...hoverStyles,
+      }}
       onClick={clickHandler}
       onMouseOver={mouseOverHandler}
-      ref={ref}
+      onMouseMove={mouseMove}
+      ref={hStackRef}
+      className={styles.root}
     >
-      {showDropIndicator && <div>|</div>}
+      {showDropIndicator && (
+        <DropIndicator
+          style={{ left: dropIndicatorPosition ?? "50%" }}
+          ref={dropIndicatorRef}
+        />
+      )}
       {children}
     </div>
   );

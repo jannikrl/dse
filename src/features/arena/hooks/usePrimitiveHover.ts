@@ -1,9 +1,6 @@
 import { CSSProperties } from "react";
 import { useAppSelector } from "../../../app/hooks";
-import {
-  Definition,
-  selectMouseOverId,
-} from "../arenaSlice";
+import { Definition, selectMouseOverId } from "../arenaSlice";
 import { getCssVariable } from "../../../utils/getCssVariable";
 
 export const usePrimitiveHover = (definition: Definition) => {
@@ -11,7 +8,10 @@ export const usePrimitiveHover = (definition: Definition) => {
   const isMouseOver = mouseOverId === definition.id;
 
   const hoverStyles: CSSProperties = isMouseOver
-    ? { outline: `1px solid ${getCssVariable("--primary-500")}` }
+    ? {
+        outline: `1px solid ${getCssVariable("--primary-500")}`,
+        outlineOffset: "-1px",
+      }
     : {};
 
   return { hoverStyles, isMouseOver };
