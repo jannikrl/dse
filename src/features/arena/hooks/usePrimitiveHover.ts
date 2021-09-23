@@ -10,9 +10,11 @@ export const usePrimitiveHover = (definition: Definition) => {
   const hoverStyles: CSSProperties = isMouseOver
     ? {
         outline: `1px solid ${getCssVariable("--primary-500")}`,
-        outlineOffset: "-1px",
+        outlineOffset: "0px",
       }
-    : {};
+    : {
+        outlineColor: getCssVariable("--primary-500"),
+      };
 
   return { hoverStyles, isMouseOver };
 };

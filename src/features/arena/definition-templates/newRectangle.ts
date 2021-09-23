@@ -6,8 +6,10 @@ export const newRectangle = () => {
     type: "rectangle",
     id: generateId(),
     properties: {
-      minWidth: 48,
-      minHeight: 48,
+      paddingTop: 16,
+      paddingRight: 16,
+      paddingBottom: 16,
+      paddingLeft: 16,
       backgroundColor: "#44CCFF",
       borderRadius: 0,
     },

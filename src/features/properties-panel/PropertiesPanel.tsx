@@ -5,10 +5,10 @@ import {
   selectSelectedDefinition,
   updateProperty,
 } from "../arena/arenaSlice";
-import { LabelAndInput } from "./LabelAndInput/LabelAndInput";
-import { Margin } from "./Margin/Margin";
+import { LabelAndInput } from "./components/LabelAndInput/LabelAndInput";
+import { Margin } from "./components/Margin/Margin";
 import styles from "./PropertiesPanel.module.css";
-import { Section } from "./Section/Section";
+import { Section } from "./components/Section/Section";
 import { toSentenceCase } from "./utils/toSentenceCase";
 
 export const PropertiesPanel = () => {

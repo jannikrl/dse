@@ -1,7 +1,7 @@
 import { FunctionComponent, ReactNode } from "react";
 
 import styles from "./Section.module.css";
-import { Heading } from "../../../components/typography/Heading/Heading";
+import { Heading } from "../../../../components/typography/Heading/Heading";
 
 interface SectionProps {
   title: string;

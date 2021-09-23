@@ -1,0 +1,22 @@
+.root {
+  height: 48px;
+  background-image: url(./placeholder-icon-h-stack.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 32px 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.root.vStack {
+  background-image: url(./placeholder-icon-v-stack.svg);
+}
+
+.root p {
+  font-size: var(--text-body-font-size);
+  color: var(--primary-500);
+  margin: 0 8px;
+  z-index: 2;
+  cursor: default;
+}

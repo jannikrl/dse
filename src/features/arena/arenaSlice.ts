@@ -30,6 +30,7 @@ export interface ArenaState {
   selectedId: Id | null;
   mouseOverId: Id | null;
   isInExpandMode: boolean;
+  isIn3dMode: boolean;
 }
 
 const initialState: ArenaState = {
@@ -37,6 +38,7 @@ const initialState: ArenaState = {
   selectedId: null,
   mouseOverId: null,
   isInExpandMode: false,
+  isIn3dMode: false,
 };
 
 const slice = createSlice({
@@ -52,14 +54,14 @@ const slice = createSlice({
     add: (
       state,
       action: PayloadAction<{
-        id: Id | null;
+        id?: Id;
         type: DefinitionType;
         index?: number;
       }>
     ) => {
       const primitive = newPrimitive(action.payload.type);
 
-      if (!state.definition || action.payload.id === null) {
+      if (!state.definition || !action.payload.id) {
         state.definition = primitive;
         return;
       }
@@ -97,9 +99,12 @@ const slice = createSlice({
       Object.assign(properties, action.payload);
       loopResult.target.properties = deleteEmptyProperties(properties);
     },
-    isInExpandMode: (state, action: PayloadAction<boolean>) => {
-      console.log("Reducer: isInExpandMode", action.payload)
+    setIsInExpandMode: (state, action: PayloadAction<boolean>) => {
       state.isInExpandMode = action.payload;
+    },
+    setIsIn3dMode: (state, action: PayloadAction<boolean>) => {
+      console.log("reducer isIn3dMode", action.payload)
+      state.isIn3dMode = action.payload;
     },
   },
 });
@@ -115,6 +120,7 @@ export const selectSelectedDefinition = (state: RootState) => {
 };
 export const selectIsInExpandMode = (state: RootState) =>
   state.arena.isInExpandMode;
+export const selectIsIn3dMode = (state: RootState) => state.arena.isIn3dMode;
 
 export const {
   select,
@@ -123,7 +129,8 @@ export const {
   remove,
   mouseOver,
   updateProperty,
-  isInExpandMode,
+  setIsInExpandMode,
+  setIsIn3dMode,
 } = slice.actions;
 
 export default slice.reducer;

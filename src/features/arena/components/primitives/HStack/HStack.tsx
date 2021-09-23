@@ -4,7 +4,11 @@ import {
   selectIsInAddingMode,
   selectSelectedType,
 } from "../../../../topbar/topbarSlice";
-import { Definition, mouseOver, selectIsInExpandMode } from "../../../arenaSlice";
+import {
+  Definition,
+  mouseOver,
+  selectIsInExpandMode,
+} from "../../../arenaSlice";
 import { usePrimitiveSelect } from "../../../hooks/usePrimitiveSelect";
 import { usePrimitiveAddChild } from "../../../hooks/usePrimitiveAddChild";
 import { usePrimitiveHover } from "../../../hooks/usePrimitiveHover";
@@ -12,6 +16,8 @@ import { useStackDropIndicatorPosition } from "../../../hooks/useStackDropIndica
 import styles from "./HStack.module.css";
 import { DropIndicator } from "../../DropIndicator/DropIndicator";
 import classNames from "classnames";
+import { EmptyStackPlaceholder } from "../../EmptyStackPlaceholder/EmptyStackPlaceholder";
+import { usePrimitive3d } from "../../../hooks/usePrimitive3d";
 
 interface HStackProps {
   definition: Definition;
@@ -24,14 +30,21 @@ export const HStack: FunctionComponent<HStackProps> = ({
 }) => {
   const hStackRef = useRef(null);
   const dropIndicatorRef = useRef(null);
+  const placeholderRef = useRef(null);
   const isInAddingMode = useAppSelector(selectIsInAddingMode);
   const isInExpandMode = useAppSelector(selectIsInExpandMode);
   const selectedType = useAppSelector(selectSelectedType);
   const { selectSelf, selectStyles } = usePrimitiveSelect(definition);
   const { isMouseOver, hoverStyles } = usePrimitiveHover(definition);
   const { canAddChild, addChild } = usePrimitiveAddChild(definition);
+  const { styles3d } = usePrimitive3d(definition);
   const { dropIndicatorPosition, dropIndex, mouseMove } =
-    useStackDropIndicatorPosition(hStackRef, dropIndicatorRef, "hStack");
+    useStackDropIndicatorPosition(
+      "hStack",
+      hStackRef,
+      dropIndicatorRef,
+      placeholderRef
+    );
 
   const dispatch = useAppDispatch();
 
@@ -51,13 +64,14 @@ export const HStack: FunctionComponent<HStackProps> = ({
 
   const showDropIndicator = isInAddingMode && isMouseOver && canAddChild;
   const hasNoChildren = definition.children.length === 0;
-
+  console.log("hasNoChildren", hasNoChildren);
   return (
     <div
       style={{
         ...definition.properties,
         ...selectStyles,
         ...hoverStyles,
+        ...styles3d,
       }}
       onClick={clickHandler}
       onMouseOver={mouseOverHandler}
@@ -65,9 +79,10 @@ export const HStack: FunctionComponent<HStackProps> = ({
       ref={hStackRef}
       className={classNames(styles.root, {
         [styles.empty]: hasNoChildren,
-        [styles.expand]: isInExpandMode
+        [styles.expand]: isInExpandMode,
       })}
     >
+      {hasNoChildren && <EmptyStackPlaceholder type="hStack" ref={placeholderRef} />}
       {showDropIndicator && (
         <DropIndicator
           style={{ left: dropIndicatorPosition ?? "50%" }}

@@ -2,7 +2,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  transition: padding 0.3s, border 0.3s, background-color 0.3s,
+  transition: all 0.3s,
 }
 
 .empty {

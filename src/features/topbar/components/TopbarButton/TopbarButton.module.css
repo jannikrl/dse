@@ -6,6 +6,7 @@
   margin: 0 var(--space-50);
   background-color: transparent;
   border: none;
+  min-width: 44px;
 }
 
 .selected {

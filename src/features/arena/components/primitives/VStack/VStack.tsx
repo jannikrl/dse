@@ -16,6 +16,8 @@ import { useStackDropIndicatorPosition } from "../../../hooks/useStackDropIndica
 import styles from "./VStack.module.css";
 import { DropIndicator } from "../../DropIndicator/DropIndicator";
 import classNames from "classnames";
+import { EmptyStackPlaceholder } from "../../EmptyStackPlaceholder/EmptyStackPlaceholder";
+import { usePrimitive3d } from "../../../hooks/usePrimitive3d";
 
 interface HStackProps {
   definition: Definition;
@@ -28,14 +30,21 @@ export const VStack: FunctionComponent<HStackProps> = ({
 }) => {
   const hStackRef = useRef(null);
   const dropIndicatorRef = useRef(null);
+  const placeholderRef = useRef(null);
   const isInAddingMode = useAppSelector(selectIsInAddingMode);
   const isInExpandMode = useAppSelector(selectIsInExpandMode);
   const selectedType = useAppSelector(selectSelectedType);
   const { selectSelf, selectStyles } = usePrimitiveSelect(definition);
   const { isMouseOver, hoverStyles } = usePrimitiveHover(definition);
   const { canAddChild, addChild } = usePrimitiveAddChild(definition);
+  const { styles3d } = usePrimitive3d(definition);
   const { dropIndicatorPosition, dropIndex, mouseMove } =
-    useStackDropIndicatorPosition(hStackRef, dropIndicatorRef, "vStack");
+    useStackDropIndicatorPosition(
+      "vStack",
+      hStackRef,
+      dropIndicatorRef,
+      placeholderRef
+    );
 
   const dispatch = useAppDispatch();
 
@@ -62,19 +71,20 @@ export const VStack: FunctionComponent<HStackProps> = ({
         ...definition.properties,
         ...selectStyles,
         ...hoverStyles,
+        ...styles3d,
       }}
       onClick={clickHandler}
       onMouseOver={mouseOverHandler}
       onMouseMove={mouseMove}
       ref={hStackRef}
-      className={classNames(
-        styles.root,
-        {
-          [styles.empty]: hasNoChildren,
-          [styles.expand]: isInExpandMode
-        },
-      )}
+      className={classNames(styles.root, {
+        [styles.empty]: hasNoChildren,
+        [styles.expand]: isInExpandMode,
+      })}
     >
+      {hasNoChildren && (
+        <EmptyStackPlaceholder type="vStack" ref={placeholderRef} />
+      )}
       {showDropIndicator && (
         <DropIndicator
           style={{

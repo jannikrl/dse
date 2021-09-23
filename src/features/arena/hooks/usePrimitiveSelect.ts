@@ -22,7 +22,7 @@ export const usePrimitiveSelect = (definition: Definition) => {
     selectedId === definition.id
       ? {
           outline: `solid 1px ${getCssVariable("--primary-500")}`,
-          outlineOffset: "-1px",
+          outlineOffset: "0px",
         }
       : {};
 

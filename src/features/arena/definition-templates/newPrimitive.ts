@@ -3,6 +3,7 @@ import { newRectangle } from "./newRectangle";
 import { newText } from "./newText";
 import { newHStack } from "./newHStack";
 import { newVStack } from "./newVStack";
+import { newIcon } from "./newIcon";
 
 export const newPrimitive = (type: DefinitionType) => {
   switch (type) {
@@ -14,6 +15,8 @@ export const newPrimitive = (type: DefinitionType) => {
       return newHStack();
     case "vStack":
       return newVStack();
+    case "icon":
+      return newIcon();
     default:
       return null;
   }

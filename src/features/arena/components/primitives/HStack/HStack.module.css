@@ -9,6 +9,13 @@
   border: var(--border-width) dashed var(--primary-500);
   min-width: 48px;
   min-height: 48px;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty svg {
+  color: var(--primary-300);
+
 }
 
 .expand {

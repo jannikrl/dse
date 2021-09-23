@@ -1,16 +1,12 @@
 import { Definition } from "../arenaSlice";
 import { generateId } from "../utils/generateId";
 
-export const newText = () => {
+export const newIcon = () => {
   return {
-    type: "text",
+    type: "icon",
     id: generateId(),
     properties: {
-      text: "Type something",
-      color: "#111111",
-      fontSize: 14,
-      fontWeight: 400,
-      letterSpacing: 0,
+      color: "#000"
     },
     children: [],
   } as Definition;

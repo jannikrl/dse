@@ -4,6 +4,7 @@ import { HStack } from "./primitives/HStack/HStack";
 import { Rectangle } from "./primitives/Reactangle/Rectangle";
 import { Text } from "./primitives/Text/Text";
 import { VStack } from "./primitives/VStack/VStack";
+import { Icon } from "./primitives/Icon/Icon";
 
 interface NodeProps {
   definition: Definition;
@@ -16,6 +17,8 @@ export const Node: FunctionComponent<NodeProps> = ({ definition }) => {
         return (
           <Rectangle definition={definition}>{renderChildren()}</Rectangle>
         );
+      case "icon":
+        return <Icon definition={definition} />;
       case "text":
         return <Text definition={definition} />;
       case "hStack":

@@ -1,7 +1,17 @@
 .root {
-    background-color: var(--area-background-color);
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: var(--area-background-color);
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scene3d {
+  perspective: 500px;
+  transform-style: preserve-3d;
+  transition: transform 0.3s;
+}
+
+.scene3d.active {
+  transform: rotate3d(3, 1, -1, 45deg);
 }

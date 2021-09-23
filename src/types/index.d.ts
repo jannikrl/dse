@@ -1,2 +1,2 @@
 export type Id = number;
-export type DefinitionType = "rectangle" | "text" | "hStack" | "vStack";
+export type DefinitionType = "rectangle" | "text" | "hStack" | "vStack" | "icon";

@@ -9,6 +9,7 @@ import { usePrimitiveSelect } from "../../../hooks/usePrimitiveSelect";
 import { usePrimitiveAddChild } from "../../../hooks/usePrimitiveAddChild";
 import { usePrimitiveHover } from "../../../hooks/usePrimitiveHover";
 import styles from "./Rectangle.module.css";
+import { usePrimitive3d } from "../../../hooks/usePrimitive3d";
 
 interface RectangleProps {
   definition: Definition;
@@ -26,6 +27,7 @@ export const Rectangle: FunctionComponent<RectangleProps> = ({
     definition,
     maxNumberOfChildren
   );
+  const { styles3d } = usePrimitive3d(definition);
   const isInAddingMode = useAppSelector(selectIsInAddingMode);
 
   const selectedType = useAppSelector(selectSelectedType);
@@ -52,7 +54,12 @@ export const Rectangle: FunctionComponent<RectangleProps> = ({
 
   return (
     <div
-      style={{ ...definition.properties, ...selectStyles, ...hoverStyles }}
+      style={{
+        ...definition.properties,
+        ...selectStyles,
+        ...hoverStyles,
+        ...styles3d,
+      }}
       onClick={clickHandler}
       onMouseOver={mouseOverHandler}
       className={styles.root}

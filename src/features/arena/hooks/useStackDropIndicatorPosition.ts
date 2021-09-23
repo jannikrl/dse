@@ -10,9 +10,10 @@ import { useAppSelector } from "../../../app/hooks";
 import { selectIsInAddingMode } from "../../topbar/topbarSlice";
 
 export const useStackDropIndicatorPosition = (
+  stackType: "hStack" | "vStack" = "hStack",
   stackRef: MutableRefObject<HTMLElement> | MutableRefObject<null>,
   dropIndicatorRef: MutableRefObject<HTMLElement> | MutableRefObject<null>,
-  stackType: "hStack" | "vStack" = "hStack"
+  placeholderRef?: MutableRefObject<HTMLElement> | MutableRefObject<null>
 ) => {
   const isInAddingMode = useAppSelector(selectIsInAddingMode);
   const [dropIndicatorPosition, setDropIndicatorPosition] = useState<
@@ -23,6 +24,7 @@ export const useStackDropIndicatorPosition = (
 
   const updateChildrenPositions = useCallback(() => {
     const dropIndicatorElement = dropIndicatorRef.current as HTMLElement | null;
+    const placeholderElement = placeholderRef?.current as HTMLElement | null;
     const stackElement = stackRef.current as HTMLDivElement | null;
     const childElementsCollection = stackElement?.children;
     const childElements = childElementsCollection
@@ -33,6 +35,7 @@ export const useStackDropIndicatorPosition = (
 
     return childElements
       .filter((child) => !child.isSameNode(dropIndicatorElement))
+      .filter((child) => !child.isSameNode(placeholderElement))
       .reduce((carry, childElement) => {
         let start =
           stackType === "hStack"
@@ -45,11 +48,10 @@ export const useStackDropIndicatorPosition = (
         carry.push({ start, end });
         return carry;
       }, [] as { start: number; end: number }[]);
-  }, [stackRef, stackType, dropIndicatorRef]);
+  }, [stackRef, stackType, dropIndicatorRef, placeholderRef]);
 
   useEffect(() => {
     childrenPositions.current = updateChildrenPositions();
-    console.log(childrenPositions.current);
   }, [updateChildrenPositions, isInAddingMode]);
 
   const mousePositionFromStart = (event: MouseEvent) => {

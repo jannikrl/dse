@@ -9,7 +9,7 @@ interface DropIndicatorProps {
 }
 
 export const DropIndicator = forwardRef<HTMLDivElement, DropIndicatorProps>(
-  ({ style, isVertical }, ref) => (
+  ({ style, isVertical = false }, ref) => (
     <div
       style={style}
       className={classNames(styles.root, { [styles.vertical]: isVertical })}
