@@ -6,7 +6,7 @@ import {
   updateProperty,
 } from "../arena/arenaSlice";
 import { LabelAndInput } from "./components/LabelAndInput/LabelAndInput";
-import { Margin } from "./components/Margin/Margin";
+import { MarginAndPadding } from "./components/MarginAndPadding/MarginAndPadding";
 import styles from "./PropertiesPanel.module.css";
 import { Section } from "./components/Section/Section";
 import { toSentenceCase } from "./utils/toSentenceCase";
@@ -19,6 +19,10 @@ export const PropertiesPanel = () => {
     "marginBottom",
     "marginRight",
     "marginLeft",
+    "paddingTop",
+    "paddingBottom",
+    "paddingRight",
+    "paddingLeft",
   ];
 
   const dispatch = useAppDispatch();
@@ -59,15 +63,24 @@ export const PropertiesPanel = () => {
     >
       <Section title="Layout">
         {selectedDefinition && (
-          <Margin
+          <MarginAndPadding
             marginTopValue={properties?.["marginTop"] ?? null}
             marginRightValue={properties?.["marginRight"] ?? null}
             marginBottomValue={properties?.["marginBottom"] ?? null}
             marginLeftValue={properties?.["marginLeft"] ?? null}
+            paddingTopValue={properties?.["paddingTop"] ?? null}
+            paddingRightValue={properties?.["paddingRight"] ?? null}
+            paddingBottomValue={properties?.["paddingBottom"] ?? null}
+            paddingLeftValue={properties?.["paddingLeft"] ?? null}
             onMarginTopChange={(value) => changeHandler("marginTop", value)}
             onMarginRightChange={(value) => changeHandler("marginRight", value)}
             onMarginBottomChange={(value) => changeHandler("marginBottom", value)}
             onMarginLeftChange={(value) => changeHandler("marginLeft", value)}
+            onPaddingTopChange={(value) => changeHandler("paddingTop", value)}
+            onPaddingRightChange={(value) => changeHandler("paddingRight", value)}
+            onPaddingBottomChange={(value) => changeHandler("paddingBottom", value)}
+            onPaddingLeftChange={(value) => changeHandler("paddingLeft", value)}
+            disablePadding={["text", "icon"].includes(selectedDefinition.type)}
           />
         )}
 

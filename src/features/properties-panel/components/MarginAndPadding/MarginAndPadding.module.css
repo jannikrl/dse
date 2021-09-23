@@ -20,12 +20,23 @@
   margin-bottom: 16px;
 }
 
-.square {
+.outerSquare {
   background-color: white;
   border: 1px solid var(--mono-300);
   border-radius: var(--border-radius);
   width: 72px;
   height: 72px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.innerSquare {
+  background-color: white;
+  border: 1px dashed var(--mono-300);
+  border-radius: var(--border-radius);
+  width: 16px;
+  height: 16px;
 }
 
 .input {
@@ -40,31 +51,73 @@
   box-sizing: border-box;
 }
 
-.input1 {
+.marginTopInput {
   text-align: center;
   top: 0;
   left: 50%;
   transform: translateX(-36px);
 }
 
-.input2 {
+.marginRightInput {
   top: 50%;
   right: 8px;
   transform: translateY(-16px);
   width: calc((100% - 72px) / 2 - 8px);
+  padding: 0 10px;
 }
 
-.input3 {
+.marginBottomInput {
   text-align: center;
   transform: translateX(-36px);
   left: 50%;
   bottom: 0;
 }
 
-.input4 {
+.marginLeftInput {
   top: 50%;
   left: 8px;
   transform: translateY(-16px);
   width: calc((100% - 72px) / 2 - 8px);
   text-align: right;
+  padding: 0 10px;
+}
+
+.paddingTopInput {
+  text-align: center;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 27px;
+  line-height: 28px;
+  padding: 0;
+}
+
+.paddingRightInput {
+  top: 50%;
+  right: 78px;
+  transform: translateY(-50%);
+  width: 27px;
+  text-align: center;
+  line-height: 28px;
+  padding: 0;
+}
+
+.paddingBottomInput {
+  text-align: center;
+  transform: translateX(-50%);
+  left: 50%;
+  bottom: 32px;
+  width: 27px;
+  line-height: 28px;
+  padding: 0;
+}
+
+.paddingLeftInput {
+  top: 50%;
+  left: 78px;
+  transform: translateY(-50%);
+  width: 27px;
+  text-align: center;
+  line-height: 28px;
+  padding: 0;
 }

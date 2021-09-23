@@ -23,6 +23,10 @@ export interface Properties {
   marginRight?: number;
   marginBottom?: number;
   marginLeft?: number;
+  paddingTop?: number;
+  paddingRight?: number;
+  paddingBottom?: number;
+  paddingLeft?: number;
 }
 
 export interface ArenaState {
