@@ -1,28 +1,25 @@
 import classNames from "classnames";
 import { ReactNode, FunctionComponent } from "react";
 import { BodySmall } from "../../../../components/typography/BodySmall/BodySmall";
-import { DefinitionType } from "../../../../types";
 import styles from "./TopbarButton.module.css";
 
 interface TopbarButtonProps {
   children: ReactNode;
   icon: ReactNode;
-  type: DefinitionType;
-  isSelected: boolean,
-  onClick: (type: DefinitionType) => void;
+  isSelected?: boolean,
+  onClick: () => void;
 }
 
 export const TopbarButton: FunctionComponent<TopbarButtonProps> = ({
   children,
   icon,
-  type,
   isSelected,
   onClick,
 }) => {
   return (
     <button
       className={classNames(styles.root, { [styles.selected]: isSelected })}
-      onClick={() => onClick(type)}
+      onClick={onClick}
     >
       {icon}
       <BodySmall

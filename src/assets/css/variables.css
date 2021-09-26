@@ -6,9 +6,10 @@
   --mono-500: #858585;
   --mono-700: #333333;
 
-  --primary-200: #DDF9FE;
+  --primary-200: #ddf9fe;
   --primary-300: #b3eaff;
   --primary-500: #3d96f5;
+  --primary-700: #2b80db;
 
   --space-50: 4px;
   --space-100: 8px;
@@ -32,6 +33,12 @@
   --text-body-color: var(--mono-500);
   --text-body-font-size: var(--text-font-size);
   --text-body-small-font-size: 12px;
+
+  --button-background-color: var(--primary-500);
+  --button-background-color-hover: var(--primary-700);
+  --button-color: var(--mono-100);
+  --button-font-size: var(--text-body-small-font-size);
+  --button-font-weight: 600;
 
   --label-color: var(--mono-700);
   --label-font-size: var(--text-font-size-small);

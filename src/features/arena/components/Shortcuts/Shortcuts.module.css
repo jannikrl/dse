@@ -1,0 +1,25 @@
+.root {
+  display: flex;
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  font-size: 10px;
+  color: var(--mono-500);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  margin-right: 24px;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--mono-100);
+  padding: 4px 8px;
+  border-radius: 2px;
+  border: 1px solid var(--border-color);
+  margin-right: 4px;
+}

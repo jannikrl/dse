@@ -4,6 +4,7 @@ import { Body } from "../../components/typography/Body/Body";
 import {
   selectIsInAddingMode,
   selectSelectedType,
+  setIsDefinitionModalOpen,
   unselect as topbarUnselect,
 } from "../topbar/topbarSlice";
 import styles from "./Arena.module.css";
@@ -18,6 +19,7 @@ import {
   setIsIn3dMode,
   selectIsIn3dMode,
 } from "./arenaSlice";
+import { Shortcuts } from "./components/Shortcuts/Shortcuts";
 import { Tree } from "./components/Tree";
 import { useAlt } from "./hooks/keyPress/useAlt";
 import { useBackspace } from "./hooks/keyPress/useBackspace";
@@ -46,6 +48,7 @@ export const Arena = () => {
   onEscape(() => {
     dispatch(arenaUnselect());
     dispatch(topbarUnselect());
+    dispatch(setIsDefinitionModalOpen(false));
   });
   onAlt(
     () => dispatch(setIsInExpandMode(true)),
@@ -75,11 +78,14 @@ export const Arena = () => {
       onClick={clickHandler}
       onMouseOver={mouseOverHandler}
     >
-      <div className={classNames(styles.scene3d, { [styles.active]: isIn3dMode })}>
+      <div
+        className={classNames(styles.scene3d, { [styles.active]: isIn3dMode })}
+      >
         {!definition && !showDropIndicator && <Body>Add something here</Body>}
         {!definition && showDropIndicator && <div>|</div>}
         {definition && <Tree definition={definition} />}
       </div>
+      <Shortcuts />
     </div>
   );
 };

@@ -1,0 +1,57 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes rotateIn {
+  0% {
+    transform: translateY(16px) scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px) scale(1);
+    opacity: 1;
+  }
+}
+
+.modal {
+  background-color: var(--mono-100);
+  border-radius: 12px;
+  width: 680px;
+  height: 540px;
+  box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  animation-duration: 250ms; 
+  animation-delay: 0s; 
+  animation-iteration-count: 1;
+}
+
+.modal:local {
+  animation-name: rotateIn;
+}
+
+.header {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.title {
+  margin: 24px;
+}
+
+.body {
+  overflow: scroll;
+  padding: 24px;
+  flex-grow: 1;
+}
+
+.body pre {
+  margin: 0;
+  font-size: 12px;
+}

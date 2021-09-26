@@ -6,6 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .divider {
@@ -13,4 +14,13 @@
   height: calc(100% - 32px);
   background-color: var(--topbar-border-color);
   margin: 16px 16px;
+}
+
+.rightAlignedContainer {
+  position: absolute;
+  right: 24px;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }

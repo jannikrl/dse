@@ -6,64 +6,90 @@ import { VStackIcon } from "./assets/icons/VStackIcon";
 import { IconsIcon } from "./assets/icons/IconsIcon";
 import styles from "./Topbar.module.css";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { select, selectSelectedType } from "./topbarSlice";
-import { unselect } from "../arena/arenaSlice";
+import {
+  select,
+  selectSelectedType,
+  selectIsDefinitionModalOpen,
+  setIsDefinitionModalOpen,
+} from "./topbarSlice";
+import { selectDefinition, unselect } from "../arena/arenaSlice";
 import { DefinitionType } from "../../types";
+import { Modal } from "../../components/UI/Modal/Modal";
+import { Button } from "../../components/UI/Button/Button";
 
 export const Topbar = () => {
   const selectedType = useAppSelector(selectSelectedType);
+  const definition = useAppSelector(selectDefinition);
+  const isDefinitionModalOpen = useAppSelector(selectIsDefinitionModalOpen);
+
   const dispatch = useAppDispatch();
 
-  const clickHandler = (type: DefinitionType) => {
+  const closeHandler = () => {
+    dispatch(setIsDefinitionModalOpen(false));
+  };
+
+  const selectTypeHandler = (type: DefinitionType) => {
     dispatch(select(type));
     dispatch(unselect());
   };
 
+  const openModalHandler = () => {
+    dispatch(setIsDefinitionModalOpen(true));
+  };
+
   return (
-    <div className={styles.root}>
-      <TopbarButton
-        icon={<RectangleIcon />}
-        type="rectangle"
-        onClick={clickHandler}
-        isSelected={selectedType === "rectangle"}
-      >
-        Rectangle
-      </TopbarButton>
-      <TopbarButton
-        icon={<TextIcon />}
-        type="text"
-        onClick={clickHandler}
-        isSelected={selectedType === "text"}
-      >
-        Text
-      </TopbarButton>
-      <TopbarButton
-        icon={<IconsIcon />}
-        type="icon"
-        onClick={clickHandler}
-        isSelected={selectedType === "icon"}
-      >
-        Icon
-      </TopbarButton>
+    <>
+      <div className={styles.root}>
+        <TopbarButton
+          icon={<RectangleIcon />}
+          onClick={() => selectTypeHandler("rectangle")}
+          isSelected={selectedType === "rectangle"}
+        >
+          Rectangle
+        </TopbarButton>
+        <TopbarButton
+          icon={<TextIcon />}
+          onClick={() => selectTypeHandler("text")}
+          isSelected={selectedType === "text"}
+        >
+          Text
+        </TopbarButton>
+        <TopbarButton
+          icon={<IconsIcon />}
+          onClick={() => selectTypeHandler("icon")}
+          isSelected={selectedType === "icon"}
+        >
+          Icon
+        </TopbarButton>
 
-      <div className={styles.divider}></div>
+        <div className={styles.divider}></div>
 
-      <TopbarButton
-        icon={<HStackIcon />}
-        type="hStack"
-        onClick={clickHandler}
-        isSelected={selectedType === "hStack"}
+        <TopbarButton
+          icon={<HStackIcon />}
+          onClick={() => selectTypeHandler("hStack")}
+          isSelected={selectedType === "hStack"}
+        >
+          HStack
+        </TopbarButton>
+        <TopbarButton
+          icon={<VStackIcon />}
+          onClick={() => selectTypeHandler("vStack")}
+          isSelected={selectedType === "vStack"}
+        >
+          VStack
+        </TopbarButton>
+
+        <div className={styles.rightAlignedContainer}>
+          <Button onClick={openModalHandler}>Code</Button>
+        </div>
+      </div>
+      <Modal
+        isOpen={isDefinitionModalOpen}
+        title="Definition"
+        onClose={closeHandler}
       >
-        HStack
-      </TopbarButton>
-      <TopbarButton
-        icon={<VStackIcon />}
-        type="vStack"
-        onClick={clickHandler}
-        isSelected={selectedType === "vStack"}
-      >
-        VStack
-      </TopbarButton>
-    </div>
+        <pre>{JSON.stringify(definition, null, 2)}</pre>
+      </Modal>
+    </>
   );
 };

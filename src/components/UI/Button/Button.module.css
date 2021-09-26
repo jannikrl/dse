@@ -1,0 +1,15 @@
+.root {
+  color: var(--button-color);
+  background-color: var(--button-background-color);
+  border-radius: 24px;
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
+  padding: 0 14px;
+  height: 32px;
+  border: none;
+  cursor: pointer;
+}
+
+.root:hover {
+    background-color: var(--button-background-color-hover);
+}
