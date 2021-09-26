@@ -8,6 +8,7 @@
   height: 32px;
   border: none;
   cursor: pointer;
+  transition: background-color 0.1s;
 }
 
 .root:hover {
