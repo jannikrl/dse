@@ -1,7 +1,14 @@
 .root {
-  height: 100%;
   width: 260px;
   background-color: var(--properties-panel-background-color);
   border-right: 1px solid var(--properties-panel-border-color);
   padding: 16px;
+}
+
+.empty {
+    opacity: 0.5;
+}
+
+.treeContainer {
+    padding-left: 0px;
 }

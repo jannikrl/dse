@@ -21,8 +21,7 @@ export const usePrimitiveSelect = (definition: Definition) => {
   const selectStyles: CSSProperties =
     selectedId === definition.id
       ? {
-          outline: `solid 1px ${getCssVariable("--primary-500")}`,
-          outlineOffset: "0px",
+          border: `solid 1px ${getCssVariable("--primary-500")}`,
         }
       : {};
 

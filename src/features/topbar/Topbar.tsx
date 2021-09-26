@@ -1,9 +1,9 @@
 import { TopbarButton } from "./components/TopbarButton/TopbarButton";
-import { TextIcon } from "./assets/icons/TextIcon";
-import { RectangleIcon } from "./assets/icons/RectangleIcon";
-import { HStackIcon } from "./assets/icons/HStackIcon";
-import { VStackIcon } from "./assets/icons/VStackIcon";
-import { IconsIcon } from "./assets/icons/IconsIcon";
+import { TextIcon } from "../../assets/icons/TextIcon";
+import { RectangleIcon } from "../../assets/icons/RectangleIcon";
+import { HStackIcon } from "../../assets/icons/HStackIcon";
+import { VStackIcon } from "../../assets/icons/VStackIcon";
+import { IconsIcon } from "../../assets/icons/IconsIcon";
 import styles from "./Topbar.module.css";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
@@ -80,7 +80,7 @@ export const Topbar = () => {
         </TopbarButton>
 
         <div className={styles.rightAlignedContainer}>
-          <Button onClick={openModalHandler}>Code</Button>
+          <Button onClick={openModalHandler}>Export</Button>
         </div>
       </div>
       <Modal
