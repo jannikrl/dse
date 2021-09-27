@@ -38,7 +38,7 @@ export const VStack: FunctionComponent<HStackProps> = ({
   const { isMouseOver, hoverStyles } = usePrimitiveHover(definition);
   const { canAddChild, addChild } = usePrimitiveAddChild(definition);
   const { styles3d } = usePrimitive3d(definition);
-  const { dropIndicatorPosition, dropIndex, mouseMove } =
+  const { dropIndicatorPosition, dropIndex, mouseMove, transitionEnd } =
     useStackDropIndicatorPosition(
       "vStack",
       hStackRef,
@@ -76,6 +76,7 @@ export const VStack: FunctionComponent<HStackProps> = ({
       onClick={clickHandler}
       onMouseOver={mouseOverHandler}
       onMouseMove={mouseMove}
+      onTransitionEnd={transitionEnd}
       ref={hStackRef}
       className={classNames(styles.root, {
         [styles.empty]: hasNoChildren,

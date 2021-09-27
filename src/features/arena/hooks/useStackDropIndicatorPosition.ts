@@ -54,16 +54,9 @@ export const useStackDropIndicatorPosition = (
     updateChildrenPositions();
   }, [updateChildrenPositions]);
 
-  useEffect(() => {
-    const stackElement = stackRef.current as HTMLDivElement | null;
-    stackElement?.addEventListener("transitionend", updateChildrenPositions);
-    return () => {
-      stackElement?.removeEventListener(
-        "transitionend",
-        updateChildrenPositions
-      );
-    };
-  }, [stackRef, updateChildrenPositions]);
+  const transitionEnd = () => {
+    updateChildrenPositions();
+  }
 
   const mousePositionFromStart = (event: MouseEvent) => {
     if (!stackRef?.current) return;
@@ -117,5 +110,5 @@ export const useStackDropIndicatorPosition = (
     }
   };
 
-  return { dropIndicatorPosition, dropIndex, mouseMove };
+  return { dropIndicatorPosition, dropIndex, mouseMove, transitionEnd };
 };

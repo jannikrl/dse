@@ -38,7 +38,7 @@ export const HStack: FunctionComponent<HStackProps> = ({
   const { isMouseOver, hoverStyles } = usePrimitiveHover(definition);
   const { canAddChild, addChild } = usePrimitiveAddChild(definition);
   const { styles3d } = usePrimitive3d(definition);
-  const { dropIndicatorPosition, dropIndex, mouseMove } =
+  const { dropIndicatorPosition, dropIndex, mouseMove, transitionEnd } =
     useStackDropIndicatorPosition(
       "hStack",
       hStackRef,
@@ -64,7 +64,7 @@ export const HStack: FunctionComponent<HStackProps> = ({
 
   const showDropIndicator = isInAddingMode && isMouseOver && canAddChild;
   const hasNoChildren = definition.children.length === 0;
-  console.log("hasNoChildren", hasNoChildren);
+  
   return (
     <div
       style={{
@@ -76,6 +76,7 @@ export const HStack: FunctionComponent<HStackProps> = ({
       onClick={clickHandler}
       onMouseOver={mouseOverHandler}
       onMouseMove={mouseMove}
+      onTransitionEnd={transitionEnd}
       ref={hStackRef}
       className={classNames(styles.root, {
         [styles.empty]: hasNoChildren,
