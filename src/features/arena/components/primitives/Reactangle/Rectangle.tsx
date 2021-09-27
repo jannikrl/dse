@@ -10,6 +10,7 @@ import { usePrimitiveAddChild } from "../../../hooks/usePrimitiveAddChild";
 import { usePrimitiveHover } from "../../../hooks/usePrimitiveHover";
 import styles from "./Rectangle.module.css";
 import { usePrimitive3d } from "../../../hooks/usePrimitive3d";
+import { DropIndicator } from "../../DropIndicator/DropIndicator";
 
 interface RectangleProps {
   definition: Definition;
@@ -64,18 +65,7 @@ export const Rectangle: FunctionComponent<RectangleProps> = ({
       onMouseOver={mouseOverHandler}
       className={styles.root}
     >
-      {showDropIndicator && (
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: "50%",
-            transform: "translateX(-2px)",
-          }}
-        >
-          |
-        </div>
-      )}
+      {showDropIndicator && <DropIndicator style={{left: '50%'}} />}
       {children}
     </div>
   );

@@ -19,6 +19,7 @@ import {
   setIsIn3dMode,
   selectIsIn3dMode,
 } from "./arenaSlice";
+import { DropIndicator } from "./components/DropIndicator/DropIndicator";
 import { Shortcuts } from "./components/Shortcuts/Shortcuts";
 import { Tree } from "./components/Tree";
 import { useAlt } from "./hooks/keyPress/useAlt";
@@ -82,7 +83,13 @@ export const Arena = () => {
         className={classNames(styles.scene3d, { [styles.active]: isIn3dMode })}
       >
         {!definition && !showDropIndicator && <Body>Add something here</Body>}
-        {!definition && showDropIndicator && <div>|</div>}
+
+        {!definition && showDropIndicator && (
+          <div className={styles.dropIndicatorContainer}>
+            <DropIndicator />
+          </div>
+        )}
+
         {definition && <Tree definition={definition} />}
       </div>
       <Shortcuts />

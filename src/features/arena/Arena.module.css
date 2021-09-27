@@ -7,6 +7,11 @@
   position: relative;
 }
 
+.dropIndicatorContainer {
+  width: 4px;
+  height: 24px;
+}
+
 .scene3d {
   perspective: 500px;
   transform-style: preserve-3d;

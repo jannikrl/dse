@@ -4,7 +4,7 @@ import { CSSProperties } from "react";
 import styles from "./DropIndicator.module.css";
 
 interface DropIndicatorProps {
-  style: CSSProperties;
+  style?: CSSProperties;
   isVertical?: boolean;
 }
 
@@ -15,7 +15,9 @@ export const DropIndicator = forwardRef<HTMLDivElement, DropIndicatorProps>(
       className={classNames(styles.root, { [styles.vertical]: isVertical })}
       ref={ref}
     >
-      |
+      <div className={classNames(styles.dot, styles.dot1)}></div>
+      <div className={styles.line}></div>
+      <div className={classNames(styles.dot, styles.dot2)}></div>
     </div>
   )
 );
