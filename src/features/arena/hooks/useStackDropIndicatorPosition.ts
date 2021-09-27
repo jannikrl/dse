@@ -33,7 +33,7 @@ export const useStackDropIndicatorPosition = (
 
     if (!childElements) return [];
 
-    return childElements
+    childrenPositions.current = childElements
       .filter((child) => !child.isSameNode(dropIndicatorElement))
       .filter((child) => !child.isSameNode(placeholderElement))
       .reduce((carry, childElement) => {
@@ -51,8 +51,19 @@ export const useStackDropIndicatorPosition = (
   }, [stackRef, stackType, dropIndicatorRef, placeholderRef]);
 
   useEffect(() => {
-    childrenPositions.current = updateChildrenPositions();
-  }, [updateChildrenPositions, isInAddingMode]);
+    updateChildrenPositions();
+  }, [updateChildrenPositions]);
+
+  useEffect(() => {
+    const stackElement = stackRef.current as HTMLDivElement | null;
+    stackElement?.addEventListener("transitionend", updateChildrenPositions);
+    return () => {
+      stackElement?.removeEventListener(
+        "transitionend",
+        updateChildrenPositions
+      );
+    };
+  }, [stackRef, updateChildrenPositions]);
 
   const mousePositionFromStart = (event: MouseEvent) => {
     if (!stackRef?.current) return;

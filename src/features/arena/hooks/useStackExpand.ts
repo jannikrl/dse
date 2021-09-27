@@ -6,7 +6,7 @@ export const useStackExpand = () => {
   const isInAddingMode = useAppSelector(selectIsInAddingMode);
 
   const baseStyles = {
-    transition: "padding 0.4s",
+    transition: "padding 0.3s",
   };
   const addingModeStyles = isInAddingMode
     ? {
