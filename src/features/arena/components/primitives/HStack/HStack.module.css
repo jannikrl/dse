@@ -1,7 +1,7 @@
 .root {
   position: relative;
   display: flex;
-  transition: padding 0.3s, border 0.3s, background-color 0.3s,
+  transition: padding 0.3s, border 0.3s, background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
 .empty {

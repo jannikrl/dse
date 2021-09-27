@@ -9,7 +9,7 @@
   align-items: center;
 }
 
-@keyframes rotateIn {
+@keyframes scaleIn {
   0% {
     transform: translateY(16px) scale(0.95);
     opacity: 0;
@@ -34,7 +34,7 @@
 }
 
 .modal:local {
-  animation-name: rotateIn;
+  animation-name: scaleIn;
 }
 
 .header {

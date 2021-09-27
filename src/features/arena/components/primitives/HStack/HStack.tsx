@@ -64,7 +64,7 @@ export const HStack: FunctionComponent<HStackProps> = ({
 
   const showDropIndicator = isInAddingMode && isMouseOver && canAddChild;
   const hasNoChildren = definition.children.length === 0;
-  
+
   return (
     <div
       style={{
@@ -83,7 +83,9 @@ export const HStack: FunctionComponent<HStackProps> = ({
         [styles.expand]: isInExpandMode,
       })}
     >
-      {hasNoChildren && <EmptyStackPlaceholder type="hStack" ref={placeholderRef} />}
+      {hasNoChildren && (
+        <EmptyStackPlaceholder type="hStack" ref={placeholderRef} />
+      )}
       {showDropIndicator && (
         <DropIndicator
           style={{ left: dropIndicatorPosition ?? "50%" }}

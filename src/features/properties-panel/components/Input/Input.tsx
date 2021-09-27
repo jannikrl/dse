@@ -4,21 +4,23 @@ import styles from "./Input.module.css";
 
 interface InputProps {
   value?: string | number;
-  onChange: (value: string | number) => void;
+  onChange?: (value: string) => void;
+  onBlur?: (value: string) => void;
   className?: string;
-  type: "text" | "number";
 }
 
 export const Input: FunctionComponent<InputProps> = ({
   value,
   onChange,
+  onBlur,
   className,
-  type,
 }) => {
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    const value =
-      type === "number" ? Number(event.target.value) : event.target.value;
-    onChange(value);
+    onChange?.(event.target.value);
+  };
+  const blurHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log("Input - blurHandler");
+    onBlur?.(event.target.value);
   };
 
   return (
@@ -26,6 +28,7 @@ export const Input: FunctionComponent<InputProps> = ({
       className={classNames(styles.root, className)}
       value={value}
       onChange={changeHandler}
+      onBlur={blurHandler}
     />
   );
 };

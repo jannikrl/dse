@@ -1,16 +1,35 @@
 .root {
   color: var(--button-color);
-  background-color: var(--button-background-color);
   border-radius: 24px;
-  font-size: var(--button-font-size);
   font-weight: var(--button-font-weight);
-  padding: 0 14px;
-  height: 32px;
   border: none;
   cursor: pointer;
   transition: background-color 0.1s;
 }
 
-.root:hover {
-    background-color: var(--button-background-color-hover);
+/** Sizes **/
+.medium {
+  padding: 0 14px;
+  height: 32px;
+  font-size: var(--button-font-size);
+}
+
+.large {
+  padding: 0 16px;
+  height: 40px;
+  font-size: var(--button-font-size);
+}
+
+/** Colors **/
+.primary {
+  background-color: var(--button-background-color);
+}
+.primary:hover {
+  background-color: var(--button-background-color-hover);
+}
+.secondary {
+  background-color: var(--button-background-color);
+}
+.secondary:hover {
+  background-color: var(--button-background-color-hover);
 }

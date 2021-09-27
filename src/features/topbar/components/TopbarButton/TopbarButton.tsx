@@ -4,16 +4,16 @@ import { BodySmall } from "../../../../components/typography/BodySmall/BodySmall
 import styles from "./TopbarButton.module.css";
 
 interface TopbarButtonProps {
-  children: ReactNode;
   icon: ReactNode;
-  isSelected?: boolean,
+  children: string;
+  isSelected?: boolean;
   onClick: () => void;
 }
 
 export const TopbarButton: FunctionComponent<TopbarButtonProps> = ({
   children,
   icon,
-  isSelected,
+  isSelected = false,
   onClick,
 }) => {
   return (

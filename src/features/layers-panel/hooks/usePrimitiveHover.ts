@@ -13,7 +13,7 @@ export const usePrimitiveHover = (definition: Definition) => {
         outlineOffset: "0px",
       }
     : {
-        outlineColor: getCssVariable("--primary-500"),
+        outline: 'none',
       };
 
   return { hoverStyles, isMouseOver };

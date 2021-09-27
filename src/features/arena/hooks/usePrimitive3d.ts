@@ -14,7 +14,6 @@ export const usePrimitive3d = (definition: Definition) => {
 
   const styles3d = {
     transform: "translateZ(0px)",
-    transition: "all 0.3s",
     transformStyle: "preserve-3d",
   } as CSSProperties;
 

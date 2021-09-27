@@ -16,6 +16,7 @@ import { selectDefinition, unselect } from "../arena/arenaSlice";
 import { DefinitionType } from "../../types";
 import { Modal } from "../../components/UI/Modal/Modal";
 import { Button } from "../../components/UI/Button/Button";
+import { BodySmall } from "../../components/typography/BodySmall/BodySmall";
 
 export const Topbar = () => {
   const selectedType = useAppSelector(selectSelectedType);
@@ -88,7 +89,10 @@ export const Topbar = () => {
         title="Definition"
         onClose={closeHandler}
       >
-        <pre>{JSON.stringify(definition, null, 2)}</pre>
+        {definition && <pre>{JSON.stringify(definition, null, 2)}</pre>}
+        {!definition && (
+          <BodySmall className={styles.noMargin}>Nothing to export</BodySmall>
+        )}
       </Modal>
     </>
   );

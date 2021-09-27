@@ -10,6 +10,7 @@ import { MarginAndPadding } from "./components/MarginAndPadding/MarginAndPadding
 import styles from "./PropertiesPanel.module.css";
 import { Section } from "./components/Section/Section";
 import { toSentenceCase } from "./utils/toSentenceCase";
+import * as yup from "yup";
 
 export const PropertiesPanel = () => {
   const selectedDefinition = useAppSelector(selectSelectedDefinition);
@@ -25,13 +26,26 @@ export const PropertiesPanel = () => {
     "paddingLeft",
   ];
 
+  let schema = yup.object().shape({
+    borderRadius: yup.number().default(0),
+    fontSize: yup.number().default(14),
+    letterSpacing: yup.number().default(0),
+    text: yup.string(),
+  });
+
   const dispatch = useAppDispatch();
 
   const changeHandler = (
     key: keyof Properties,
     value: string | number | null
   ) => {
-    dispatch(updateProperty({ [key]: value }));
+    schema.isValid({ [key]: value }).then((valid) => {
+      if (!valid) {
+        dispatch(updateProperty(schema.pick([key]).getDefault()));
+        return;
+      }
+      dispatch(updateProperty(schema.pick([key]).cast({ [key]: value })));
+    });
   };
 
   const renderProperties = () => {
@@ -49,7 +63,7 @@ export const PropertiesPanel = () => {
             key={key}
             value={properties[key]}
             onChange={(value) => changeHandler(key, value)}
-            type={type}
+            type={"text"}
           />
         );
       });
@@ -74,11 +88,17 @@ export const PropertiesPanel = () => {
             paddingLeftValue={properties?.["paddingLeft"] ?? null}
             onMarginTopChange={(value) => changeHandler("marginTop", value)}
             onMarginRightChange={(value) => changeHandler("marginRight", value)}
-            onMarginBottomChange={(value) => changeHandler("marginBottom", value)}
+            onMarginBottomChange={(value) =>
+              changeHandler("marginBottom", value)
+            }
             onMarginLeftChange={(value) => changeHandler("marginLeft", value)}
             onPaddingTopChange={(value) => changeHandler("paddingTop", value)}
-            onPaddingRightChange={(value) => changeHandler("paddingRight", value)}
-            onPaddingBottomChange={(value) => changeHandler("paddingBottom", value)}
+            onPaddingRightChange={(value) =>
+              changeHandler("paddingRight", value)
+            }
+            onPaddingBottomChange={(value) =>
+              changeHandler("paddingBottom", value)
+            }
             onPaddingLeftChange={(value) => changeHandler("paddingLeft", value)}
             disablePadding={["text", "icon"].includes(selectedDefinition.type)}
           />
