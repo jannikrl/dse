@@ -1,6 +1,6 @@
 import { FunctionComponent, ReactNode, MouseEvent } from "react";
 import { useAppDispatch } from "../../../../app/hooks";
-import { Definition, mouseOver } from "../../../arena/arenaSlice";
+import { mouseOver } from "../../../arena/arenaSlice";
 import { usePrimitiveSelect } from "../../hooks/usePrimitiveSelect";
 import { BodySmall } from "../../../../components/typography/BodySmall/BodySmall";
 import { TextIcon } from "../../../../assets/icons/TextIcon";
@@ -9,6 +9,7 @@ import { HStackIcon } from "../../../../assets/icons/HStackIcon";
 import { VStackIcon } from "../../../../assets/icons/VStackIcon";
 import { IconsIcon } from "../../../../assets/icons/IconsIcon";
 import styles from "./ListItem.module.css";
+import { Definition } from "../../../../types";
 
 interface ListItemProps {
   definition: Definition;

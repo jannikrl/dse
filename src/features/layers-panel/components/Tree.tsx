@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { Definition } from "../../arena/arenaSlice";
+import { Definition } from "../../../types";
 import { Node } from "./Node";
 
 interface TreeProps {

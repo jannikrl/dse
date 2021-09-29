@@ -1,5 +1,4 @@
-import { Id } from "../../../../types";
-import { Definition } from "../../arenaSlice";
+import { Definition, Id } from "../../../../types";
 
 type Loop = (
   id: Id,

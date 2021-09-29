@@ -1,7 +1,8 @@
 import { FunctionComponent, MouseEvent } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../../app/hooks";
+import { Definition } from "../../../../../types";
 import { selectIsInAddingMode } from "../../../../topbar/topbarSlice";
-import { Definition, mouseOver } from "../../../arenaSlice";
+import { mouseOver } from "../../../arenaSlice";
 import { usePrimitive3d } from "../../../hooks/usePrimitive3d";
 import { usePrimitiveHover } from "../../../hooks/usePrimitiveHover";
 import { usePrimitiveSelect } from "../../../hooks/usePrimitiveSelect";

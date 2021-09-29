@@ -5,7 +5,6 @@ import {
   selectSelectedType,
 } from "../../../../topbar/topbarSlice";
 import {
-  Definition,
   mouseOver,
   selectIsInExpandMode,
 } from "../../../arenaSlice";
@@ -18,6 +17,7 @@ import { DropIndicator } from "../../DropIndicator/DropIndicator";
 import classNames from "classnames";
 import { EmptyStackPlaceholder } from "../../EmptyStackPlaceholder/EmptyStackPlaceholder";
 import { usePrimitive3d } from "../../../hooks/usePrimitive3d";
+import { Definition } from "../../../../../types";
 
 interface HStackProps {
   definition: Definition;

@@ -4,13 +4,14 @@ import {
   selectIsInAddingMode,
   selectSelectedType,
 } from "../../../../topbar/topbarSlice";
-import { Definition, mouseOver } from "../../../arenaSlice";
+import { mouseOver } from "../../../arenaSlice";
 import { usePrimitiveSelect } from "../../../hooks/usePrimitiveSelect";
 import { usePrimitiveAddChild } from "../../../hooks/usePrimitiveAddChild";
 import { usePrimitiveHover } from "../../../hooks/usePrimitiveHover";
 import styles from "./Rectangle.module.css";
 import { usePrimitive3d } from "../../../hooks/usePrimitive3d";
 import { DropIndicator } from "../../DropIndicator/DropIndicator";
+import { Definition } from "../../../../../types";
 
 interface RectangleProps {
   definition: Definition;

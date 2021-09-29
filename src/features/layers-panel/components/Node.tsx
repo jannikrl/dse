@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
+import { Definition } from "../../../types";
 import { ListItem } from "./ListItem/ListItem";
-import { Definition } from "../../arena/arenaSlice";
 
 interface NodeProps {
   definition: Definition;

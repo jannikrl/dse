@@ -1,7 +1,8 @@
 import { CSSProperties } from "react";
 import { useAppSelector } from "../../../app/hooks";
-import { Definition, selectMouseOverId } from "../../arena/arenaSlice";
+import { selectMouseOverId } from "../../arena/arenaSlice";
 import { getCssVariable } from "../../../utils/getCssVariable";
+import { Definition } from "../../../types";
 
 export const usePrimitiveHover = (definition: Definition) => {
   const mouseOverId = useAppSelector(selectMouseOverId);

@@ -1,4 +1,4 @@
-import { Definition } from "../arenaSlice";
+import { Definition } from "../../../types";
 import { generateId } from "../utils/generateId";
 
 export const newIcon = () => {

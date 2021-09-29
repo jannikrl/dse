@@ -1,7 +1,7 @@
 import { CSSProperties } from "react";
 import { useAppSelector } from "../../../app/hooks";
+import { Definition } from "../../../types";
 import {
-  Definition,
   selectIsIn3dMode,
   selectIsInExpandMode,
 } from "../arenaSlice";

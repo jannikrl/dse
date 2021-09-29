@@ -1,12 +1,12 @@
 import { CSSProperties } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
-  Definition,
   select as areaSelect,
   selectSelectedId,
 } from "../../arena/arenaSlice";
 import { unselect } from "../../topbar/topbarSlice";
 import { getCssVariable } from "../../../utils/getCssVariable";
+import { Definition } from "../../../types";
 
 export const usePrimitiveSelect = (definition: Definition) => {
   const selectedId = useAppSelector(selectSelectedId);

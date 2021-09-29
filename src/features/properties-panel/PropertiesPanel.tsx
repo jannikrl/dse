@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
-  Properties,
   selectSelectedDefinition,
   updateProperty,
 } from "../arena/arenaSlice";
@@ -11,6 +10,7 @@ import styles from "./PropertiesPanel.module.css";
 import { Section } from "./components/Section/Section";
 import { toSentenceCase } from "./utils/toSentenceCase";
 import * as yup from "yup";
+import { Properties } from "../../types";
 
 export const PropertiesPanel = () => {
   const selectedDefinition = useAppSelector(selectSelectedDefinition);
@@ -55,8 +55,6 @@ export const PropertiesPanel = () => {
     return keys
       .filter((key) => !excludeList.includes(key))
       .map((key) => {
-        const isNumber = typeof properties[key] === "number";
-        const type = isNumber ? "number" : "text";
         return (
           <LabelAndInput
             label={toSentenceCase(key)}

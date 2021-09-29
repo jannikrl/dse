@@ -1,7 +1,7 @@
 import { useAppDispatch } from "../../../app/hooks";
-import { DefinitionType } from "../../../types";
+import { Definition, DefinitionType } from "../../../types";
 import { unselect as topbarUnselect } from "../../topbar/topbarSlice";
-import { add as arenaAdd, Definition } from "../arenaSlice";
+import { add as arenaAdd } from "../arenaSlice";
 
 export const usePrimitiveAddChild = (
   definition: Definition,
