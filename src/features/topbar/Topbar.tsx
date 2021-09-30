@@ -17,6 +17,7 @@ import { DefinitionType } from "../../types";
 import { Modal } from "../../components/UI/Modal/Modal";
 import { Button } from "../../components/UI/Button/Button";
 import { BodySmall } from "../../components/typography/BodySmall/BodySmall";
+import { generate } from "../../services/code-generator/generate";
 
 export const Topbar = () => {
   const selectedType = useAppSelector(selectSelectedType);
@@ -37,6 +38,30 @@ export const Topbar = () => {
   const openModalHandler = () => {
     dispatch(setIsDefinitionModalOpen(true));
   };
+
+  const download = (filename: string, text: string) => {
+    const element = document.createElement("a");
+    element.setAttribute(
+      "href",
+      "data:text/plain;charset=utf-8," + encodeURIComponent(text)
+    );
+    element.setAttribute("download", filename);
+
+    element.style.display = "none";
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+  };
+
+  const generatedCode = generate("NoName", definition);
+
+  const downloadReactComponentButton = (
+    <Button onClick={() => download("NoName.tsx", generatedCode)}>
+      Download
+    </Button>
+  );
 
   return (
     <>
@@ -87,9 +112,11 @@ export const Topbar = () => {
       <Modal
         isOpen={isDefinitionModalOpen}
         title="Definition"
+        renderHeaderSlot={() => downloadReactComponentButton}
         onClose={closeHandler}
       >
         {definition && <pre>{JSON.stringify(definition, null, 2)}</pre>}
+
         {!definition && (
           <BodySmall className={styles.noMargin}>Nothing to export</BodySmall>
         )}

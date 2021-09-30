@@ -45,14 +45,16 @@ const getJSXTemplate = (definition: Definition | null) => {
   const primitiveTemplate = getPrimitiveTemplate(
     definition.type,
     styleTemplate,
-    childrenTemplate
+    definition.type === "text" ? definition.properties.text : childrenTemplate
   );
 
   return primitiveTemplate;
 };
 
 const getStylesTemplate = (properties: Properties) => {
-  const keys = Object.keys(properties) as Array<keyof typeof properties>;
+  const keys = Object.keys(properties).filter((property) =>
+    Object.keys(cssPropertyNameMap).includes(property)
+  ) as Array<keyof typeof properties>;
 
   if (!keys.length) return "";
 
@@ -61,6 +63,7 @@ const getStylesTemplate = (properties: Properties) => {
       typeof properties[property] === "string"
         ? '"' + properties[property] + '"'
         : properties[property];
+    if (!cssPropertyNameMap.hasOwnProperty(property)) return carry;
     return carry + `${cssPropertyNameMap[property]}: ${value}, `;
   }, "");
 
@@ -76,7 +79,7 @@ const getPrimitiveTemplate = (
     case "rectangle":
       return getRectangleTemplate(styleTemplate, childrenTemplate);
     case "text":
-      return getTextTemplate(styleTemplate);
+      return getTextTemplate(styleTemplate, childrenTemplate);
     default:
       return "";
   }
@@ -87,8 +90,10 @@ const getRectangleTemplate = (
   childrenTemplate: string = ""
 ) => `<div${styleTemplate}>${childrenTemplate}</div>`;
 
-const getTextTemplate = (styleTemplate: string = "") =>
-  `<p${styleTemplate}></p>`;
+const getTextTemplate = (
+  styleTemplate: string = "",
+  childrenTemplate: string = ""
+) => `<p${styleTemplate}>${childrenTemplate}</p>`;
 
 const getReactComponentTemplate = (componentName: string, jsx?: string) =>
   `import React, {FunctionComponent} from "react";const ${componentName}: FunctionComponent = () => ${

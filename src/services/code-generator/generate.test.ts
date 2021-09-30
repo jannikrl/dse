@@ -152,4 +152,18 @@ describe("Generate", () => {
       `import React, {FunctionComponent} from "react";const AName: FunctionComponent = () => <div><p></p></div>;export default AName`
     );
   });
+
+  test("Outputs a p with text inside", () => {
+    const input = {
+      id: 0,
+      type: "text",
+      properties: {
+        text: "Type something",
+      },
+      children: [],
+    } as Definition;
+    expect(generate("AName", input)).toEqual(
+      `import React, {FunctionComponent} from "react";const AName: FunctionComponent = () => <p>Type something</p>;export default AName`
+    );
+  });
 });

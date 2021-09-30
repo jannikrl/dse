@@ -8,6 +8,7 @@ interface ModalProps {
   isOpen: boolean;
   children: ReactNode;
   title?: string;
+  renderHeaderSlot?: () => ReactNode;
   onClose?: () => void;
 }
 
@@ -15,6 +16,7 @@ export const Modal: FunctionComponent<ModalProps> = ({
   isOpen,
   title,
   children,
+  renderHeaderSlot,
   onClose,
 }) => {
   const clickHandler = (event: MouseEvent) => {
@@ -26,14 +28,12 @@ export const Modal: FunctionComponent<ModalProps> = ({
   return (
     (isOpen && (
       <ModalPortal>
-        <div
-          className={styles.backdrop}
-          onClick={clickHandler}
-        >
+        <div className={styles.backdrop} onClick={clickHandler}>
           <div className={styles.modal}>
             {title && (
               <div className={styles.header}>
                 <Heading className={styles.title}>{title}</Heading>
+                <div>{renderHeaderSlot?.()}</div>
               </div>
             )}
             <div className={styles.body}>{children}</div>
