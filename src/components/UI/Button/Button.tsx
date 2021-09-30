@@ -4,20 +4,27 @@ import styles from "./Button.module.css";
 
 interface ButtonProps {
   size?: "medium" | "large";
-  color?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "text";
   children: string;
+  className?: string;
   onClick: () => void;
 }
 
 export const Button: FunctionComponent<ButtonProps> = ({
   size = "medium",
-  color = "primary",
+  variant = "primary",
   children,
+  className,
   onClick,
 }) => {
   return (
     <button
-      className={classNames(styles.root, styles[size], styles[color])}
+      className={classNames(
+        styles.root,
+        styles[size],
+        styles[variant],
+        className
+      )}
       onClick={onClick}
     >
       {children}

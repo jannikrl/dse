@@ -32,6 +32,30 @@ describe("Generate", () => {
     );
   });
 
+  test("Outputs a div for a hStack", () => {
+    const input = {
+      id: 0,
+      type: "hStack",
+      properties: {},
+      children: [],
+    } as Definition;
+    expect(generate("AName", input)).toEqual(
+      `import React, {FunctionComponent} from "react";const AName: FunctionComponent = () => <div></div>;export default AName`
+    );
+  });
+
+  test("Outputs a div for a vStack", () => {
+    const input = {
+      id: 0,
+      type: "vStack",
+      properties: {},
+      children: [],
+    } as Definition;
+    expect(generate("AName", input)).toEqual(
+      `import React, {FunctionComponent} from "react";const AName: FunctionComponent = () => <div></div>;export default AName`
+    );
+  });
+
   test("Outputs styles for a rectangle", () => {
     const input = {
       id: 0,
@@ -60,6 +84,36 @@ describe("Generate", () => {
     } as Definition;
     expect(generate("AName", input)).toEqual(
       `import React, {FunctionComponent} from "react";const AName: FunctionComponent = () => <p style={{marginRight: 48, marginLeft: 48, }}></p>;export default AName`
+    );
+  });
+
+  test("Outputs styles for a hStack", () => {
+    const input = {
+      id: 0,
+      type: "hStack",
+      children: [],
+      properties: {
+        marginRight: 48,
+        marginLeft: 48,
+      },
+    } as Definition;
+    expect(generate("AName", input)).toEqual(
+      `import React, {FunctionComponent} from "react";const AName: FunctionComponent = () => <div style={{marginRight: 48, marginLeft: 48, }}></div>;export default AName`
+    );
+  });
+
+  test("Outputs styles for a vStack", () => {
+    const input = {
+      id: 0,
+      type: "vStack",
+      children: [],
+      properties: {
+        marginRight: 48,
+        marginLeft: 48,
+      },
+    } as Definition;
+    expect(generate("AName", input)).toEqual(
+      `import React, {FunctionComponent} from "react";const AName: FunctionComponent = () => <div style={{marginRight: 48, marginLeft: 48, }}></div>;export default AName`
     );
   });
 
@@ -124,6 +178,44 @@ describe("Generate", () => {
         {
           id: 1,
           type: "rectangle",
+          properties: {},
+          children: [],
+        },
+      ],
+    } as Definition;
+    expect(generate("AName", input)).toEqual(
+      `import React, {FunctionComponent} from "react";const AName: FunctionComponent = () => <div><div></div></div>;export default AName`
+    );
+  });
+
+  test("Outputs a div within a div for a nested hStacks", () => {
+    const input = {
+      id: 0,
+      type: "hStack",
+      properties: {},
+      children: [
+        {
+          id: 1,
+          type: "hStack",
+          properties: {},
+          children: [],
+        },
+      ],
+    } as Definition;
+    expect(generate("AName", input)).toEqual(
+      `import React, {FunctionComponent} from "react";const AName: FunctionComponent = () => <div><div></div></div>;export default AName`
+    );
+  });
+
+  test("Outputs a div within a div for a nested vStacks", () => {
+    const input = {
+      id: 0,
+      type: "vStack",
+      properties: {},
+      children: [
+        {
+          id: 1,
+          type: "vStack",
           properties: {},
           children: [],
         },

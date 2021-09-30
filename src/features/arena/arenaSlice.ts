@@ -83,7 +83,6 @@ const slice = createSlice({
       state.isInExpandMode = action.payload;
     },
     setIsIn3dMode: (state, action: PayloadAction<boolean>) => {
-      console.log("reducer isIn3dMode", action.payload)
       state.isIn3dMode = action.payload;
     },
   },

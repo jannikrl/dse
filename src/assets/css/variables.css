@@ -34,11 +34,14 @@
   --text-body-font-size: var(--text-font-size);
   --text-body-small-font-size: 12px;
 
-  --button-background-color: var(--primary-500);
-  --button-background-color-hover: var(--primary-700);
-  --button-color: var(--mono-100);
-  --button-font-size: var(--text-body-small-font-size);
   --button-font-weight: 600;
+  --button-medium-font-size: var(--text-body-small-font-size);
+  --button-large-font-size: var(--text-body-small-font-size);
+  --button-primary-background-color: var(--primary-500);
+  --button-primary-background-color-hover: var(--primary-700);
+  --button-primary-color: var(--mono-100);
+  --button-text-color: var(--primary-500);
+  --button-text-color-hover: var(--primary-700);
 
   --label-color: var(--mono-700);
   --label-font-size: var(--text-font-size-small);

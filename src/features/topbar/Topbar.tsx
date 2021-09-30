@@ -58,8 +58,8 @@ export const Topbar = () => {
   const generatedCode = generate("NoName", definition);
 
   const downloadReactComponentButton = (
-    <Button onClick={() => download("NoName.tsx", generatedCode)}>
-      Download
+    <Button variant="text" onClick={() => download("NoName.tsx", generatedCode)} className={styles.downloadButton}>
+      Download as .tsx
     </Button>
   );
 

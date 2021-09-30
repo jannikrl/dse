@@ -28,3 +28,7 @@
 .noMargin {
   margin: 0;
 }
+
+.downloadButton {
+  margin: 16px;
+}
