@@ -29,6 +29,7 @@ export const PropertiesPanel = () => {
   let schema = yup.object().shape({
     borderRadius: yup.number().default(0),
     fontSize: yup.number().default(14),
+    fontWeight: yup.number().default(400),
     letterSpacing: yup.number().default(0),
     text: yup.string(),
   });

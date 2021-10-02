@@ -18,6 +18,7 @@ import { Modal } from "../../components/UI/Modal/Modal";
 import { Button } from "../../components/UI/Button/Button";
 import { BodySmall } from "../../components/typography/BodySmall/BodySmall";
 import { generate } from "../../services/code-generator/generate";
+import { ModalPortal } from "../../components/UI/ModalPortal/ModalPortal";
 
 export const Topbar = () => {
   const selectedType = useAppSelector(selectSelectedType);
@@ -58,7 +59,11 @@ export const Topbar = () => {
   const generatedCode = generate("NoName", definition);
 
   const downloadReactComponentButton = (
-    <Button variant="text" onClick={() => download("NoName.tsx", generatedCode)} className={styles.downloadButton}>
+    <Button
+      variant="text"
+      onClick={() => download("NoName.tsx", generatedCode)}
+      className={styles.downloadButton}
+    >
       Download as .tsx
     </Button>
   );
@@ -109,18 +114,20 @@ export const Topbar = () => {
           <Button onClick={openModalHandler}>Export</Button>
         </div>
       </div>
-      <Modal
-        isOpen={isDefinitionModalOpen}
-        title="Definition"
-        renderHeaderSlot={() => downloadReactComponentButton}
-        onClose={closeHandler}
-      >
-        {definition && <pre>{JSON.stringify(definition, null, 2)}</pre>}
+      <ModalPortal>
+        <Modal
+          isOpen={isDefinitionModalOpen}
+          title="Definition"
+          renderHeaderSlot={() => downloadReactComponentButton}
+          onClose={closeHandler}
+        >
+          {definition && <pre>{JSON.stringify(definition, null, 2)}</pre>}
 
-        {!definition && (
-          <BodySmall className={styles.noMargin}>Nothing to export</BodySmall>
-        )}
-      </Modal>
+          {!definition && (
+            <BodySmall className={styles.noMargin}>Nothing to export</BodySmall>
+          )}
+        </Modal>
+      </ModalPortal>
     </>
   );
 };

@@ -1,7 +1,6 @@
 import { FunctionComponent, MouseEvent } from "react";
 import { ReactNode } from "react";
 import { Heading } from "../../typography/Heading/Heading";
-import { ModalPortal } from "../ModalPortal/ModalPortal";
 import styles from "./Modal.module.css";
 
 interface ModalProps {
@@ -27,19 +26,17 @@ export const Modal: FunctionComponent<ModalProps> = ({
 
   return (
     (isOpen && (
-      <ModalPortal>
-        <div className={styles.backdrop} onClick={clickHandler}>
-          <div className={styles.modal}>
-            {title && (
-              <div className={styles.header}>
-                <Heading className={styles.title}>{title}</Heading>
-                <div>{renderHeaderSlot?.()}</div>
-              </div>
-            )}
-            <div className={styles.body}>{children}</div>
-          </div>
+      <div className={styles.backdrop} onClick={clickHandler}>
+        <div className={styles.modal}>
+          {title && (
+            <div className={styles.header}>
+              <Heading className={styles.title}>{title}</Heading>
+              <div>{renderHeaderSlot?.()}</div>
+            </div>
+          )}
+          <div className={styles.body}>{children}</div>
         </div>
-      </ModalPortal>
+      </div>
     )) ||
     null
   );

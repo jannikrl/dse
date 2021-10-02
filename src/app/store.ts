@@ -2,11 +2,13 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import arenaReducer from "../features/arena/arenaSlice";
 import topbarReducer from "../features/topbar/topbarSlice";
 
+export const reducersMap = {
+  arena: arenaReducer,
+  topbar: topbarReducer,
+};
+
 export const store = configureStore({
-  reducer: {
-    arena: arenaReducer,
-    topbar: topbarReducer,
-  },
+  reducer: reducersMap,
 });
 
 export type AppDispatch = typeof store.dispatch;

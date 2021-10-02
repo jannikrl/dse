@@ -13,7 +13,7 @@ export interface ArenaState {
   isIn3dMode: boolean;
 }
 
-const initialState: ArenaState = {
+export const initialState: ArenaState = {
   definition: null,
   selectedId: null,
   mouseOverId: null,
