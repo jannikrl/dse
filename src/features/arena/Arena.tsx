@@ -74,7 +74,7 @@ export const Arena = () => {
   };
 
   return (
-    <div
+    <main
       className={styles.root}
       onClick={clickHandler}
       onMouseOver={mouseOverHandler}
@@ -93,6 +93,6 @@ export const Arena = () => {
         {definition && <Tree definition={definition} />}
       </div>
       <Shortcuts />
-    </div>
+    </main>
   );
 };

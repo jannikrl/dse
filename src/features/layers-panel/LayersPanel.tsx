@@ -9,9 +9,9 @@ export const LayersPanel = () => {
   const definition = useAppSelector(selectDefinition);
 
   return (
-    <div className={classNames(styles.root, {[styles.empty]: !definition})}>
+    <aside className={classNames(styles.root, {[styles.empty]: !definition})}>
       <Heading>Layers</Heading>
       <div className={styles.treeContainer}>{definition && <Tree definition={definition} />}</div>
-    </div>
+    </aside>
   );
 };

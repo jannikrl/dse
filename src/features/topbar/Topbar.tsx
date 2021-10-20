@@ -70,7 +70,7 @@ export const Topbar = () => {
 
   return (
     <>
-      <div className={styles.root}>
+      <header className={styles.root}>
         <TopbarButton
           icon={<RectangleIcon />}
           onClick={() => selectTypeHandler("rectangle")}
@@ -113,7 +113,7 @@ export const Topbar = () => {
         <div className={styles.rightAlignedContainer}>
           <Button onClick={openModalHandler}>Export</Button>
         </div>
-      </div>
+      </header>
       <ModalPortal>
         <Modal
           isOpen={isDefinitionModalOpen}

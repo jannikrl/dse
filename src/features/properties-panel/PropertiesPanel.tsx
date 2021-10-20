@@ -69,7 +69,7 @@ export const PropertiesPanel = () => {
   };
 
   return (
-    <div
+    <aside
       className={classNames(styles.root, {
         [styles.placeholder]: selectedDefinition === null,
       })}
@@ -105,6 +105,6 @@ export const PropertiesPanel = () => {
 
         {renderProperties()}
       </Section>
-    </div>
+    </aside>
   );
 };
