@@ -10,8 +10,45 @@ describe("LayersPanel component test", () => {
     type: "rectangle",
     id: 1,
     properties: {},
-    children: [],
+    children: [
+      {
+        type: "text",
+        id: 2,
+        properties: {
+          text: "Lorem ipsum"
+        },
+        children: [],
+      },
+    ],
   } as Definition;
+
+  test("it should render a list item representing a rectangle", () => {
+    const { getByText } = render(<LayersPanel />, {
+      preloadedState: {
+        arena: {
+          ...initialState,
+          definition,
+          selectedId: 1,
+        },
+      },
+    });
+
+    expect(getByText(/rectangle/i).parentElement).toBeInTheDocument;
+  });
+
+  test("it should render a list item representing a text", () => {
+    const { getByText } = render(<LayersPanel />, {
+      preloadedState: {
+        arena: {
+          ...initialState,
+          definition,
+          selectedId: 1,
+        },
+      },
+    });
+
+    expect(getByText(/lorem ipsum/i).parentElement).toBeInTheDocument;
+  });
 
   test("it should render a border when item is selected", () => {
     const { getByText } = render(<LayersPanel />, {
