@@ -42,7 +42,7 @@ export const HStack: FunctionComponent<HStackProps> = ({
   const { mouseOver } = usePrimitiveHover(definition);
   const { addChild } = usePrimitiveAddChild(definition);
   const { canAddChild } = usePrimitiveCanAddChild(definition);
-  const { dropIndicatorPosition, dropIndex, mouseMove, transitionEnd } =
+  const { dropIndicatorPosition, dropIndex, mouseMove, update } =
     useStackDropIndicatorPosition(
       "hStack",
       hStackRef,
@@ -81,7 +81,7 @@ export const HStack: FunctionComponent<HStackProps> = ({
       onClick={clickHandler}
       onMouseOver={mouseOverHandler}
       onMouseMove={mouseMove}
-      onTransitionEnd={transitionEnd}
+      onTransitionEnd={update}
       ref={hStackRef}
     >
       {hasNoChildren && (

@@ -33,6 +33,7 @@ export const VStack: FunctionComponent<HStackProps> = ({
   const hStackRef = useRef(null);
   const dropIndicatorRef = useRef(null);
   const placeholderRef = useRef(null);
+  
   const isInAddingMode = useAppSelector(selectIsInAddingMode);
   const isInExpandMode = useAppSelector(selectIsInExpandMode);
   const isIn3dMode = useAppSelector(selectIsIn3dMode);
@@ -43,7 +44,7 @@ export const VStack: FunctionComponent<HStackProps> = ({
   const { mouseOver } = usePrimitiveHover(definition);
   const { addChild } = usePrimitiveAddChild(definition);
   const { canAddChild } = usePrimitiveCanAddChild(definition);
-  const { dropIndicatorPosition, dropIndex, mouseMove, transitionEnd } =
+  const { dropIndicatorPosition, dropIndex, mouseMove, update } =
     useStackDropIndicatorPosition(
       "vStack",
       hStackRef,
@@ -82,7 +83,7 @@ export const VStack: FunctionComponent<HStackProps> = ({
       onClick={clickHandler}
       onMouseOver={mouseOverHandler}
       onMouseMove={mouseMove}
-      onTransitionEnd={transitionEnd}
+      onTransitionEnd={update}
       ref={hStackRef}
     >
       {hasNoChildren && (

@@ -1,17 +1,17 @@
 import { FunctionComponent, ReactNode, MouseEvent } from "react";
-import { useAppSelector } from "../../../../../app/hooks";
-import { selectIsInAddingMode } from "../../../../topbar/topbarSlice";
+import { usePrimitiveCanAddChild } from "../../../hooks/usePrimitiveCanAddChild";
+import { usePrimitiveAddChild } from "../../../hooks/usePrimitiveAddChild";
 import { selectIsIn3dMode, selectMouseOverId } from "../../../arenaSlice";
 import { usePrimitiveSelect } from "../../../hooks/usePrimitiveSelect";
-import { usePrimitiveAddChild } from "../../../hooks/usePrimitiveAddChild";
-import { usePrimitiveCanAddChild } from "../../../hooks/usePrimitiveCanAddChild";
-import styles from "./Rectangle.module.css";
-import { DropIndicator } from "../../DropIndicator/DropIndicator";
-import { Definition } from "../../../../../types";
-import { selectSelectedId } from "../../../arenaSlice";
-import classNames from "classnames";
-import arenaStyles from "../../../Arena.module.css";
+import { selectIsInAddingMode } from "../../../../topbar/topbarSlice";
 import { usePrimitiveHover } from "../../../hooks/usePrimitiveHover";
+import { DropIndicator } from "../../DropIndicator/DropIndicator";
+import { useAppSelector } from "../../../../../app/hooks";
+import { selectSelectedId } from "../../../arenaSlice";
+import { Definition } from "../../../../../types";
+import classNames from "classnames";
+import styles from "./Rectangle.module.css";
+import arenaStyles from "../../../Arena.module.css";
 
 interface RectangleProps {
   definition: Definition;
@@ -23,8 +23,8 @@ export const Rectangle: FunctionComponent<RectangleProps> = ({
   children,
 }) => {
   const selectedId = useAppSelector(selectSelectedId);
-  const mouseOverId = useAppSelector(selectMouseOverId);
   const isIn3dMode = useAppSelector(selectIsIn3dMode);
+  const mouseOverId = useAppSelector(selectMouseOverId);
   const isInAddingMode = useAppSelector(selectIsInAddingMode);
 
   const { select } = usePrimitiveSelect(definition);
@@ -38,21 +38,21 @@ export const Rectangle: FunctionComponent<RectangleProps> = ({
   };
 
   const clickHandler = (event: MouseEvent) => {
-    addChild();
     select();
+    addChild();
     event.stopPropagation();
   };
 
-  const isMouseOver = mouseOverId === definition.id;
   const isSelected = selectedId === definition.id;
+  const isMouseOver = mouseOverId === definition.id;
   const showDropIndicator = isInAddingMode && isMouseOver && canAddChild;
 
   return (
     <div
       className={classNames(styles.root, arenaStyles.primitive3d, {
-        [arenaStyles.selected]: isSelected,
         [arenaStyles.hover]: isMouseOver,
         [arenaStyles.active]: isIn3dMode,
+        [arenaStyles.selected]: isSelected,
       })}
       style={{
         ...definition.properties,

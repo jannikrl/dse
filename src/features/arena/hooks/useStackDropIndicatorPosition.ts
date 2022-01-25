@@ -54,7 +54,7 @@ export const useStackDropIndicatorPosition = (
     updateChildrenPositions();
   }, [updateChildrenPositions]);
 
-  const transitionEnd = () => {
+  const update = () => {
     updateChildrenPositions();
   }
 
@@ -110,5 +110,5 @@ export const useStackDropIndicatorPosition = (
     }
   };
 
-  return { dropIndicatorPosition, dropIndex, mouseMove, transitionEnd };
+  return { dropIndicatorPosition, dropIndex, mouseMove, update };
 };
