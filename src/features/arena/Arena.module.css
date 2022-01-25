@@ -21,3 +21,23 @@
 .scene3d.active {
   transform: rotate3d(3, 1, -1, 45deg);
 }
+
+/*
+ *  Primitive styles
+ */
+
+.primitive3d {
+  transform: translateZ(0px);
+  transform-style: preserve-3d;
+}
+
+.primitive3d.active {
+  transform: translateZ(30px);
+  box-shadow: -10px 30px 10px rgba(0, 0, 0, 0.1);
+}
+
+.selected,
+.hover {
+  outline: solid 1px var(--primary-500);
+  outline-offset: 0px;
+}

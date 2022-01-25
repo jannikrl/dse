@@ -1,41 +1,52 @@
 import { FunctionComponent, MouseEvent } from "react";
-import { useAppDispatch, useAppSelector } from "../../../../../app/hooks";
+import { useAppSelector } from "../../../../../app/hooks";
 import { Definition } from "../../../../../types";
-import { selectIsInAddingMode } from "../../../../topbar/topbarSlice";
-import { mouseOver } from "../../../arenaSlice";
-import { usePrimitive3d } from "../../../hooks/usePrimitive3d";
+import {
+  selectIsIn3dMode,
+  selectMouseOverId,
+  selectSelectedId,
+} from "../../../arenaSlice";
 import { usePrimitiveHover } from "../../../hooks/usePrimitiveHover";
 import { usePrimitiveSelect } from "../../../hooks/usePrimitiveSelect";
 import styles from "./Icon.module.css";
+import arenaStyles from "../../../Arena.module.css";
+import classNames from "classnames";
 
 interface IconProps {
   definition: Definition;
 }
 
 export const Icon: FunctionComponent<IconProps> = ({ definition }) => {
-  const isInAddingMode = useAppSelector(selectIsInAddingMode);
-  const { selectSelf, selectStyles } = usePrimitiveSelect(definition);
-  const { hoverStyles } = usePrimitiveHover(definition);
-  const { styles3d } = usePrimitive3d(definition);
+  const isIn3dMode = useAppSelector(selectIsIn3dMode);
+  const selectedId = useAppSelector(selectSelectedId);
+  const mouseOverId = useAppSelector(selectMouseOverId);
 
-  const dispatch = useAppDispatch();
+  const { select } = usePrimitiveSelect(definition);
+  const { mouseOver } = usePrimitiveHover(definition);
 
   const clickHandler = (event: MouseEvent) => {
-    if (isInAddingMode) return;
-    selectSelf();
+    select();
     event.stopPropagation();
   };
 
   const mouseOverHandler = (event: MouseEvent) => {
-    if (isInAddingMode) return;
-    dispatch(mouseOver(definition.id));
+    mouseOver();
     event.stopPropagation();
   };
 
+  const isSelected = selectedId === definition.id;
+  const isMouseOver = mouseOverId === definition.id;
+
   return (
     <div
-      className={styles.root}
-      style={{ ...definition.properties, ...selectStyles, ...hoverStyles, ...styles3d }}
+      className={classNames(styles.root, arenaStyles.primitive3d, {
+        [arenaStyles.selected]: isSelected,
+        [arenaStyles.hover]: isMouseOver,
+        [arenaStyles.active]: isIn3dMode,
+      })}
+      style={{
+        ...definition.properties,
+      }}
       onClick={clickHandler}
       onMouseOver={mouseOverHandler}
     >

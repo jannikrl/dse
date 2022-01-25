@@ -1,28 +1,32 @@
-import { useAppDispatch } from "../../../app/hooks";
-import { Definition, DefinitionType } from "../../../types";
-import { unselect as topbarUnselect } from "../../topbar/topbarSlice";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { Definition } from "../../../types";
+import {
+  selectIsInAddingMode,
+  selectSelectedType,
+  unselect as topbarUnselect,
+} from "../../topbar/topbarSlice";
 import { add as arenaAdd } from "../arenaSlice";
+import { usePrimitiveCanAddChild } from "./usePrimitiveCanAddChild";
 
-export const usePrimitiveAddChild = (
-  definition: Definition,
-  maxNumberOfChildren: number | null = null
-) => {
-  const canAddChild = maxNumberOfChildren
-    ? definition.children.length < maxNumberOfChildren
-    : true;
+export const usePrimitiveAddChild = (definition: Definition) => {
+  const isInAddingMode = useAppSelector(selectIsInAddingMode);
+  const selectedType = useAppSelector(selectSelectedType);
+  const { canAddChild } = usePrimitiveCanAddChild(definition);
 
   const dispatch = useAppDispatch();
 
-  const addChild = (options: { type: DefinitionType; index?: number }) => {
+  const addChild = (index?: number) => {
+    if (!isInAddingMode || !canAddChild || !selectedType) return;
+
     dispatch(
       arenaAdd({
         id: definition.id,
-        type: options.type,
-        index: options.index ?? 0,
+        type: selectedType,
+        index: index ?? 0,
       })
     );
     dispatch(topbarUnselect());
   };
 
-  return { canAddChild, addChild };
+  return { addChild };
 };

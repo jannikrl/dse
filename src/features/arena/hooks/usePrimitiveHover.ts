@@ -1,19 +1,19 @@
-import { CSSProperties } from "react";
-import { useAppSelector } from "../../../app/hooks";
-import { selectMouseOverId } from "../arenaSlice";
-import { getCssVariable } from "../../../utils/getCssVariable";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { mouseOver as mouseOverDefinitionId } from "../arenaSlice";
 import { Definition } from "../../../types";
+import { selectIsInAddingMode } from "../../topbar/topbarSlice";
+import { usePrimitiveCanAddChild } from "./usePrimitiveCanAddChild";
 
 export const usePrimitiveHover = (definition: Definition) => {
-  const mouseOverId = useAppSelector(selectMouseOverId);
-  const isMouseOver = mouseOverId === definition.id;
+  const isInAddingMode = useAppSelector(selectIsInAddingMode);
+  const { canAddChild } = usePrimitiveCanAddChild(definition);
 
-  const hoverStyles: CSSProperties = isMouseOver
-    ? {
-        outline: `1px solid ${getCssVariable("--primary-500")}`,
-        outlineOffset: "0px",
-      }
-    : {};
+  const dispatch = useAppDispatch();
 
-  return { hoverStyles, isMouseOver };
+  const mouseOver = () => {
+    if (isInAddingMode && !canAddChild) return;
+    dispatch(mouseOverDefinitionId(definition.id));
+  };
+
+  return { mouseOver };
 };

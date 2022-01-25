@@ -1,17 +1,17 @@
 import { FunctionComponent, ReactNode, MouseEvent } from "react";
-import { useAppDispatch, useAppSelector } from "../../../../../app/hooks";
-import {
-  selectIsInAddingMode,
-  selectSelectedType,
-} from "../../../../topbar/topbarSlice";
-import { mouseOver } from "../../../arenaSlice";
+import { useAppSelector } from "../../../../../app/hooks";
+import { selectIsInAddingMode } from "../../../../topbar/topbarSlice";
+import { selectIsIn3dMode, selectMouseOverId } from "../../../arenaSlice";
 import { usePrimitiveSelect } from "../../../hooks/usePrimitiveSelect";
 import { usePrimitiveAddChild } from "../../../hooks/usePrimitiveAddChild";
-import { usePrimitiveHover } from "../../../hooks/usePrimitiveHover";
+import { usePrimitiveCanAddChild } from "../../../hooks/usePrimitiveCanAddChild";
 import styles from "./Rectangle.module.css";
-import { usePrimitive3d } from "../../../hooks/usePrimitive3d";
 import { DropIndicator } from "../../DropIndicator/DropIndicator";
 import { Definition } from "../../../../../types";
+import { selectSelectedId } from "../../../arenaSlice";
+import classNames from "classnames";
+import arenaStyles from "../../../Arena.module.css";
+import { usePrimitiveHover } from "../../../hooks/usePrimitiveHover";
 
 interface RectangleProps {
   definition: Definition;
@@ -22,51 +22,45 @@ export const Rectangle: FunctionComponent<RectangleProps> = ({
   definition,
   children,
 }) => {
-  const maxNumberOfChildren = 1;
-  const { selectSelf, selectStyles } = usePrimitiveSelect(definition);
-  const { hoverStyles, isMouseOver } = usePrimitiveHover(definition);
-  const { canAddChild, addChild } = usePrimitiveAddChild(
-    definition,
-    maxNumberOfChildren
-  );
-  const { styles3d } = usePrimitive3d(definition);
+  const selectedId = useAppSelector(selectSelectedId);
+  const mouseOverId = useAppSelector(selectMouseOverId);
+  const isIn3dMode = useAppSelector(selectIsIn3dMode);
   const isInAddingMode = useAppSelector(selectIsInAddingMode);
 
-  const selectedType = useAppSelector(selectSelectedType);
-
-  const dispatch = useAppDispatch();
+  const { select } = usePrimitiveSelect(definition);
+  const { mouseOver } = usePrimitiveHover(definition);
+  const { addChild } = usePrimitiveAddChild(definition);
+  const { canAddChild } = usePrimitiveCanAddChild(definition);
 
   const mouseOverHandler = (event: MouseEvent) => {
-    if (isInAddingMode && !canAddChild) return;
+    mouseOver();
     event.stopPropagation();
-    dispatch(mouseOver(definition.id));
   };
 
   const clickHandler = (event: MouseEvent) => {
-    if (isInAddingMode && !canAddChild) return;
+    addChild();
+    select();
     event.stopPropagation();
-    if (isInAddingMode && canAddChild && selectedType) {
-      addChild({ type: selectedType });
-      return;
-    }
-    selectSelf();
   };
 
+  const isMouseOver = mouseOverId === definition.id;
+  const isSelected = selectedId === definition.id;
   const showDropIndicator = isInAddingMode && isMouseOver && canAddChild;
 
   return (
     <div
+      className={classNames(styles.root, arenaStyles.primitive3d, {
+        [arenaStyles.selected]: isSelected,
+        [arenaStyles.hover]: isMouseOver,
+        [arenaStyles.active]: isIn3dMode,
+      })}
       style={{
         ...definition.properties,
-        ...selectStyles,
-        ...hoverStyles,
-        ...styles3d,
       }}
       onClick={clickHandler}
       onMouseOver={mouseOverHandler}
-      className={styles.root}
     >
-      {showDropIndicator && <DropIndicator style={{left: '50%'}} />}
+      {showDropIndicator && <DropIndicator style={{ left: "50%" }} />}
       {children}
     </div>
   );

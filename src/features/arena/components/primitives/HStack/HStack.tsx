@@ -1,23 +1,23 @@
 import { FunctionComponent, ReactNode, MouseEvent, useRef } from "react";
-import { useAppDispatch, useAppSelector } from "../../../../../app/hooks";
+import { useAppSelector } from "../../../../../app/hooks";
+import { selectIsInAddingMode } from "../../../../topbar/topbarSlice";
 import {
-  selectIsInAddingMode,
-  selectSelectedType,
-} from "../../../../topbar/topbarSlice";
-import {
-  mouseOver,
+  selectIsIn3dMode,
   selectIsInExpandMode,
+  selectMouseOverId,
+  selectSelectedId,
 } from "../../../arenaSlice";
 import { usePrimitiveSelect } from "../../../hooks/usePrimitiveSelect";
 import { usePrimitiveAddChild } from "../../../hooks/usePrimitiveAddChild";
 import { usePrimitiveHover } from "../../../hooks/usePrimitiveHover";
 import { useStackDropIndicatorPosition } from "../../../hooks/useStackDropIndicatorPosition";
-import styles from "./HStack.module.css";
 import { DropIndicator } from "../../DropIndicator/DropIndicator";
-import classNames from "classnames";
 import { EmptyStackPlaceholder } from "../../EmptyStackPlaceholder/EmptyStackPlaceholder";
-import { usePrimitive3d } from "../../../hooks/usePrimitive3d";
 import { Definition } from "../../../../../types";
+import { usePrimitiveCanAddChild } from "../../../hooks/usePrimitiveCanAddChild";
+import classNames from "classnames";
+import arenaStyles from "../../../Arena.module.css";
+import styles from "./HStack.module.css";
 
 interface HStackProps {
   definition: Definition;
@@ -31,13 +31,17 @@ export const HStack: FunctionComponent<HStackProps> = ({
   const hStackRef = useRef(null);
   const dropIndicatorRef = useRef(null);
   const placeholderRef = useRef(null);
+
   const isInAddingMode = useAppSelector(selectIsInAddingMode);
   const isInExpandMode = useAppSelector(selectIsInExpandMode);
-  const selectedType = useAppSelector(selectSelectedType);
-  const { selectSelf, selectStyles } = usePrimitiveSelect(definition);
-  const { isMouseOver, hoverStyles } = usePrimitiveHover(definition);
-  const { canAddChild, addChild } = usePrimitiveAddChild(definition);
-  const { styles3d } = usePrimitive3d(definition);
+  const isIn3dMode = useAppSelector(selectIsIn3dMode);
+  const selectedId = useAppSelector(selectSelectedId);
+  const mouseOverId = useAppSelector(selectMouseOverId);
+
+  const { select } = usePrimitiveSelect(definition);
+  const { mouseOver } = usePrimitiveHover(definition);
+  const { addChild } = usePrimitiveAddChild(definition);
+  const { canAddChild } = usePrimitiveCanAddChild(definition);
   const { dropIndicatorPosition, dropIndex, mouseMove, transitionEnd } =
     useStackDropIndicatorPosition(
       "hStack",
@@ -46,42 +50,39 @@ export const HStack: FunctionComponent<HStackProps> = ({
       placeholderRef
     );
 
-  const dispatch = useAppDispatch();
-
   const mouseOverHandler = (event: MouseEvent) => {
-    dispatch(mouseOver(definition.id));
+    mouseOver();
     event.stopPropagation();
   };
 
   const clickHandler = (event: MouseEvent) => {
+    addChild(dropIndex);
+    select();
     event.stopPropagation();
-    if (isInAddingMode && canAddChild && selectedType) {
-      addChild({ type: selectedType, index: dropIndex });
-      return;
-    }
-    selectSelf();
   };
 
+  const isMouseOver = mouseOverId === definition.id;
+  const isSelected = selectedId === definition.id;
   const showDropIndicator = isInAddingMode && isMouseOver && canAddChild;
   const hasNoChildren = definition.children.length === 0;
 
   return (
     <div
+      className={classNames(styles.root, arenaStyles.primitive3d, {
+        [styles.empty]: hasNoChildren,
+        [styles.expand]: isInExpandMode,
+        [arenaStyles.selected]: isSelected,
+        [arenaStyles.hover]: isMouseOver,
+        [arenaStyles.active]: isIn3dMode,
+      })}
       style={{
         ...definition.properties,
-        ...selectStyles,
-        ...hoverStyles,
-        ...styles3d,
       }}
       onClick={clickHandler}
       onMouseOver={mouseOverHandler}
       onMouseMove={mouseMove}
       onTransitionEnd={transitionEnd}
       ref={hStackRef}
-      className={classNames(styles.root, {
-        [styles.empty]: hasNoChildren,
-        [styles.expand]: isInExpandMode,
-      })}
     >
       {hasNoChildren && (
         <EmptyStackPlaceholder type="hStack" ref={placeholderRef} />

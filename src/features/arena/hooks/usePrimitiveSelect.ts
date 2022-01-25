@@ -1,30 +1,20 @@
-import { CSSProperties } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import {
-  select as areaSelect,
-  selectSelectedId,
-} from "../arenaSlice";
-import { unselect } from "../../topbar/topbarSlice";
-import { getCssVariable } from "../../../utils/getCssVariable";
+import { select as areaSelect } from "../arenaSlice";
+import { selectIsInAddingMode, unselect } from "../../topbar/topbarSlice";
 import { Definition } from "../../../types";
+import { usePrimitiveCanAddChild } from "./usePrimitiveCanAddChild";
 
 export const usePrimitiveSelect = (definition: Definition) => {
-  const selectedId = useAppSelector(selectSelectedId);
+  const isInAddingMode = useAppSelector(selectIsInAddingMode);
+  const { canAddChild } = usePrimitiveCanAddChild(definition);
 
   const dispatch = useAppDispatch();
 
-  const selectSelf = () => {
+  const select = () => {
+    if (isInAddingMode && !canAddChild) return;
     dispatch(areaSelect(definition.id));
     dispatch(unselect());
   };
 
-  const selectStyles: CSSProperties =
-    selectedId === definition.id
-      ? {
-          outline: `solid 1px ${getCssVariable("--primary-500")}`,
-          outlineOffset: "0px",
-        }
-      : {};
-
-  return { selectSelf, selectStyles };
+  return { select };
 };
