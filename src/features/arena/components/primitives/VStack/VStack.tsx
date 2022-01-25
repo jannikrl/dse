@@ -75,7 +75,7 @@ export const VStack: FunctionComponent<HStackProps> = ({
         [styles.expand]: isInExpandMode,
         [arenaStyles.selected]: isSelected,
         [arenaStyles.hover]: isMouseOver,
-        [arenaStyles.active]: isIn3dMode,
+        [arenaStyles.active]: isIn3dMode && isInExpandMode,
       })}
       style={{
         ...definition.properties,

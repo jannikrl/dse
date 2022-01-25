@@ -7,17 +7,17 @@ import {
   selectMouseOverId,
   selectSelectedId,
 } from "../../../arenaSlice";
-import { usePrimitiveSelect } from "../../../hooks/usePrimitiveSelect";
-import { usePrimitiveAddChild } from "../../../hooks/usePrimitiveAddChild";
-import { usePrimitiveHover } from "../../../hooks/usePrimitiveHover";
 import { useStackDropIndicatorPosition } from "../../../hooks/useStackDropIndicatorPosition";
-import { DropIndicator } from "../../DropIndicator/DropIndicator";
 import { EmptyStackPlaceholder } from "../../EmptyStackPlaceholder/EmptyStackPlaceholder";
-import { Definition } from "../../../../../types";
 import { usePrimitiveCanAddChild } from "../../../hooks/usePrimitiveCanAddChild";
+import { usePrimitiveAddChild } from "../../../hooks/usePrimitiveAddChild";
+import { usePrimitiveSelect } from "../../../hooks/usePrimitiveSelect";
+import { usePrimitiveHover } from "../../../hooks/usePrimitiveHover";
+import { DropIndicator } from "../../DropIndicator/DropIndicator";
+import { Definition } from "../../../../../types";
 import classNames from "classnames";
-import arenaStyles from "../../../Arena.module.css";
 import styles from "./HStack.module.css";
+import arenaStyles from "../../../Arena.module.css";
 
 interface HStackProps {
   definition: Definition;
@@ -71,17 +71,17 @@ export const HStack: FunctionComponent<HStackProps> = ({
       className={classNames(styles.root, arenaStyles.primitive3d, {
         [styles.empty]: hasNoChildren,
         [styles.expand]: isInExpandMode,
-        [arenaStyles.selected]: isSelected,
         [arenaStyles.hover]: isMouseOver,
-        [arenaStyles.active]: isIn3dMode,
+        [arenaStyles.selected]: isSelected,
+        [arenaStyles.active]: isIn3dMode && isInExpandMode,
       })}
       style={{
         ...definition.properties,
       }}
       onClick={clickHandler}
-      onMouseOver={mouseOverHandler}
       onMouseMove={mouseMove}
       onTransitionEnd={update}
+      onMouseOver={mouseOverHandler}
       ref={hStackRef}
     >
       {hasNoChildren && (
