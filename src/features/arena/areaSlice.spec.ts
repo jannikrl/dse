@@ -1,4 +1,5 @@
-import areaReducer, { ArenaState, Definition, remove } from "./arenaSlice";
+import { Definition } from "../../types";
+import areaReducer, { ArenaState, remove } from "./arenaSlice";
 
 const initialDefinition: Definition = {
   type: "rectangle",
@@ -13,7 +14,7 @@ const initialDefinition: Definition = {
       type: "text",
       id: 1004,
       properties: {
-        value: "Type something",
+        text: "Type something",
       },
       children: [],
     },
@@ -25,6 +26,8 @@ describe("area reducer", () => {
     definition: initialDefinition,
     selectedId: 1004,
     mouseOverId: null,
+    isIn3dMode: false,
+    isInExpandMode: false,
   };
 
   it("should remove child", () => {
