@@ -1,4 +1,4 @@
-import { Definition } from "../../arenaSlice";
+import { Definition } from "../../../../types";
 import { loop } from "./loop";
 
 const definition: Definition = {
@@ -14,7 +14,7 @@ const definition: Definition = {
       type: "text",
       id: 1004,
       properties: {
-        value: "Type something",
+        text: "Type something",
       },
       children: [],
     },
@@ -22,7 +22,7 @@ const definition: Definition = {
         type: "text",
         id: 1005,
         properties: {
-          value: "Type something",
+          text: "Type something",
         },
         children: [],
       },
@@ -30,7 +30,7 @@ const definition: Definition = {
 };
 
 describe("Arena/Util/Loop", () => {
-  xtest("Loop finds root", () => {
+  test("Loop finds root", () => {
     const result = loop(1003, definition);
     expect(result?.target.id).toEqual(1003);
   });
