@@ -1,5 +1,6 @@
 # Design System Editor
 The editor is build using:
+- React
 - Redux Toolkit
 - TypeScript
 - Hooks
