@@ -1,4 +1,3 @@
-import classNames from "classnames";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Body } from "../../components/typography/Body/Body";
 import {
@@ -20,6 +19,7 @@ import {
   selectIsIn3dMode,
 } from "./arenaSlice";
 import { DropIndicator } from "./components/DropIndicator/DropIndicator";
+import { Rotate3d } from "./components/Rotate3d/Rotate3d";
 import { Shortcuts } from "./components/Shortcuts/Shortcuts";
 import { Tree } from "./components/Tree";
 import { useAlt } from "./hooks/keyPress/useAlt";
@@ -79,10 +79,8 @@ export const Arena = () => {
       onClick={clickHandler}
       onMouseOver={mouseOverHandler}
     >
-      <div
-        className={classNames(styles.scene3d, { [styles.active]: isIn3dMode })}
-      >
-        {!definition && !showDropIndicator && <Body>Add something here</Body>}
+      <Rotate3d>
+        {definition && <Tree definition={definition} />}
 
         {!definition && showDropIndicator && (
           <div className={styles.dropIndicatorContainer}>
@@ -90,8 +88,8 @@ export const Arena = () => {
           </div>
         )}
 
-        {definition && <Tree definition={definition} />}
-      </div>
+        {!definition && !showDropIndicator && <Body>Add something here</Body>}
+      </Rotate3d>
       <Shortcuts />
     </main>
   );
