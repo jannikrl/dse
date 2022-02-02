@@ -1,5 +1,5 @@
 # Design System Editor
-The editor is a project I build to learn technologies within the React eco-system. The editor is build using:
+The editor is build to learn technologies within the React eco-system. The editor is build using:
 - Redux Toolkit
 - TypeScript
 - Hooks
@@ -15,6 +15,7 @@ So, I asked myself: **"Would it be possible to define a component once and then 
 
 The editor is a suggestion on how that would work.
 
+## Preview
 https://user-images.githubusercontent.com/1298449/152153700-58e839aa-ebac-4d34-950c-27376fccdcd9.mov
 
 
@@ -26,14 +27,14 @@ The definition is a tree structure, where every node in the tree have a type, an
 An example of a rectangle-node:
 ```json
 {
-    type: "rectangle",
-    id: 1,
-    properties: {
-      padding: 16,
-      backgroundColor: "#44CCFF",
-      borderRadius: 0,
+    "type": "rectangle",
+    "id": 1,
+    "properties": {
+      "padding": 16,
+      "backgroundColor": "#44CCFF",
+      "borderRadius": 0,
     },
-    children: [],
+    "children": [],
 }
 ```
 
