@@ -21,3 +21,13 @@
   outline: solid 1px var(--primary-500);
   outline-offset: 0px;
 }
+
+.primitive3d {
+  transform: translateZ(0px);
+  transform-style: preserve-3d;
+}
+
+.primitive3d.active {
+  transform: translateZ(30px);
+  box-shadow: -10px 30px 10px rgba(0, 0, 0, 0.1);
+}

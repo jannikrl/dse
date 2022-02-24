@@ -16,7 +16,6 @@ import {
   selectMouseOverId,
   setIsInExpandMode,
   setIsIn3dMode,
-  selectIsIn3dMode,
 } from "./arenaSlice";
 import { DropIndicator } from "./components/DropIndicator/DropIndicator";
 import { Rotate3d } from "./components/Rotate3d/Rotate3d";
@@ -31,7 +30,6 @@ export const Arena = () => {
   const definition = useAppSelector(selectDefinition);
   const mouseOverId = useAppSelector(selectMouseOverId);
   const isInAddingMode = useAppSelector(selectIsInAddingMode);
-  const isIn3dMode = useAppSelector(selectIsIn3dMode);
   const selectedType = useAppSelector(selectSelectedType);
   const isMouseOver = mouseOverId === null;
   const isAvailableForDrop = definition === null;
